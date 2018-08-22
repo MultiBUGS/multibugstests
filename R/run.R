@@ -1,11 +1,11 @@
 #' @export
-run_example <- function(model, n.workers, dir){
+run_example <- function(model, n.workers, dir, working_dir = tempdir()){
   examples_dir <- file.path(dir, "Examples")
   MultiBUGS.pgm <- file.path(dir, "MultiBUGS.exe")
+
   old_wd <- getwd()
-  temp_dir <- tempdir()
-  setwd(temp_dir)
-  tidy_temp_dir(temp_dir)
+  setwd(working_dir)
+  tidy_working_dir(working_dir)
   
   bugs_fn <- R2MultiBUGS::bugs
   output <- NULL
@@ -22,10 +22,10 @@ run_example <- function(model, n.workers, dir){
                                                             examples_dir),
                      n.chains = 2,
                      MultiBUGS.pgm = MultiBUGS.pgm,
-                     working.directory = temp_dir,
+                     working.directory = working_dir,
                      clearWD = TRUE,
                      codaPkg = TRUE)
-    output <- read.bugs(files, quiet = TRUE)
+    output <- R2MultiBUGS::read.bugs(files, quiet = TRUE)
   },
   error = function(e) e)
   setwd(old_wd)
@@ -56,8 +56,13 @@ run_all_examples <- function(dir = NULL,
   }
   
   for (model in all_models){
+    working_dir <- tempdir(check = TRUE)
+
     start <- proc.time()
-    ok <- run_example(model, n.workers, dir)
+    ok <- run_example(model = model,
+                      n.workers = n.workers,
+                      dir = dir,
+                      working_dir = working_dir)
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
     if (!ok){
       any_failed <- TRUE
@@ -67,7 +72,7 @@ run_all_examples <- function(dir = NULL,
                matched = ok,
                model = model,
                milliseconds = milliseconds,
-               working.directory = working.directory)
+               working.directory = working_dir)
     flush.console()
   }
   if (report == "appveyor"){
