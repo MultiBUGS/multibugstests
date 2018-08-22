@@ -52,12 +52,14 @@ appveyor_reporter_post <- function(fit,
   outcome <- ifelse(passed, "Passed", "Failed")
   model <- paste0(model, " (", n.workers, " workers)")
   log <- readLines(file.path(working.directory, "log.txt"))
+  fit_print <- head(summary(fit)$statistics, 50)
   fit <- c("\nResults obtained:\n",
-           capture.output(print(fit)), "\n",
-           capture.output(dput(fit)))
+           capture.output(fit_print), "\n",
+           capture.output(dput(fit_print)))
+  true_print <- head(summary(true)$statistics, 50)
   true <- c("\nReference results:\n",
-            capture.output(print(true)), "\n",
-            capture.output(dput(true)))
+            capture.output(true_print), "\n",
+            capture.output(dput(true_print)))
   stdout <- paste(paste(log, collapse = "\n"),
                   paste(fit, collapse = "\n"),
                   paste(true, collapse = "\n"),
