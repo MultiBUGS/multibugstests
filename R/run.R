@@ -1,5 +1,8 @@
 #' @export
-run_example <- function(model, n.workers, dir, working_dir = tempdir()){
+run_example <- function(model,
+                        n.workers = 2,
+                        dir = "C:/MultiBUGS",
+                        working_dir = tempdir()){
   examples_dir <- file.path(dir, "Examples")
   MultiBUGS.pgm <- file.path(dir, "MultiBUGS.exe")
 
@@ -37,7 +40,7 @@ run_example <- function(model, n.workers, dir, working_dir = tempdir()){
 }
 
 #' @export
-run_all_examples <- function(dir = NULL,
+run_all_examples <- function(dir = "C:/MultiBUGS",
                              n.workers = 2,
                              report = "text",
                              exclude = NULL,
