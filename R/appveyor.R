@@ -2,15 +2,15 @@
 #' 
 #' @param type One of \code{"pre"}, \code{"post"} and \code{"wrapup"}
 #' specifying the stage that needs reporting.
-#' @param ... Passed to \code{\link{appveyor_reporter_pre}},
+#' @return The function \code{\link{appveyor_reporter_pre}},
 #' \code{\link{appveyor_reporter_post}} or \code{\link{appveyor_reporter_wrapup}}
 appveyor_reporter <- function(type, ...){
   if (type == "pre"){
-    appveyor_reporter_pre(...)
+    appveyor_reporter_pre
   } else if (type == "post"){
-    appveyor_reporter_post(...)
+    appveyor_reporter_post
   } else if (type == "wrapup"){
-    appveyor_reporter_wrapup(...)
+    appveyor_reporter_wrapup
   } else {
     stop("Incorrect type specified")
   }
@@ -18,19 +18,11 @@ appveyor_reporter <- function(type, ...){
 
 #' Report "pre" results to AppVeyor
 #' @inheritParams text_reporter_pre
-appveyor_reporter_pre <- function(fit,
-                                  true,
-                                  matched,
-                                  model,
+appveyor_reporter_pre <- function(model,
                                   n.workers,
-                                  milliseconds,
                                   working.directory){
-  text_reporter_pre(fit,
-                    true,
-                    matched,
-                    model,
+  text_reporter_pre(model,
                     n.workers,
-                    milliseconds,
                     working.directory)
   model <- paste0(model, " (", n.workers, " workers)")
   system(paste("appveyor AddTest",
@@ -42,22 +34,22 @@ appveyor_reporter_pre <- function(fit,
 
 #' Report "post" results to Appveyor
 #' 
-#' @inheritParams text_reporter_pre
+#' @inheritParams text_reporter_post
 appveyor_reporter_post <- function(fit,
                                    true,
-                                   matched,
+                                   passed,
                                    model,
                                    n.workers,
                                    milliseconds,
                                    working.directory){
   text_reporter_post(fit,
                      true,
-                     matched,
+                     passed,
                      model,
                      n.workers,
                      milliseconds,
                      working.directory)
-  outcome <- ifelse(matched, "Passed", "Failed")
+  outcome <- ifelse(passed, "Passed", "Failed")
   model <- paste0(model, " (", n.workers, " workers)")
   log <- readLines(file.path(working.directory, "log.txt"))
   fit <- c("\nResults obtained:\n",
@@ -81,14 +73,13 @@ appveyor_reporter_post <- function(fit,
 
 #' Report "wrapup" results to the console
 #' 
-#' @inheritParams text_reporter_pre
-appveyor_reporter_wrapup <- function(fit,
-                                     true,
-                                     matched,
-                                     model,
-                                     n.workers,
-                                     milliseconds,
-                                     working.directory){
-  
+#' @inheritParams text_reporter_wrapup
+appveyor_reporter_wrapup <- function(output_all,
+                                     passed_all){
+  text_reporter_wrapup(output_all,
+                       passed_all)
+  any_failed <- any(!passed_all)
+  exit_status <- ifelse(any_failed, 1, 0)
+  q(status = exit_status)
 }
 

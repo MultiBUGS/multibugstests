@@ -75,16 +75,16 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
     check_fun <- check_runs
   }
   
+  n_models <- length(all_models)
+  
+  output_all <- list()
+  passed_all <- logical(0)
+  
   for (model in all_models){
     working_dir <- tempdir(check = TRUE)
-    report_fun(type = "pre",
-               fit = NULL,
-               true = NULL,
-               matched = NULL,
-               model = model,
-               n.workers = n.workers,
-               milliseconds = NULL,
-               working.directory = working_dir)
+    report_fun(type = "pre")(model = model,
+                             n.workers = n.workers,
+                             working.directory = working_dir)
     
     start <- proc.time()
     output <- bugs_example(model = model,
@@ -92,6 +92,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                            dir = dir,
                            working_dir = working_dir,
                            implementation = implementation)
+    output_all[[model]] <- output
     if (!is.null(save)){
       save_output(output,
                   save_dir = save,
@@ -100,25 +101,20 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                   working_dir,
                   implementation)
     }
-    ok <- check_fun(model, output)
-    
+    passed <- check_fun(model, output)
+    passed_all[model] <- passed
+
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
-    if (!ok){
-      any_failed <- TRUE
-    }
-    report_fun(type = "post",
-               fit = summary(output),
-               true = NULL,
-               matched = ok,
-               model = model,
-               n.workers = n.workers,
-               milliseconds = milliseconds,
-               working.directory = working_dir)
+    report_fun(type = "post")(fit = summary(output),
+                              true = NULL,
+                              passed = passed,
+                              model = model,
+                              n.workers = n.workers,
+                              milliseconds = milliseconds,
+                              working.directory = working_dir)
     flush.console()
   }
-  if (report == "appveyor"){
-    exit_status <- ifelse(any_failed, 1, 0)
-    q(status = exit_status)
-  }
+  report_fun(type = "wrapup")(output_all,
+                              passed_all)
   invisible()
 }
