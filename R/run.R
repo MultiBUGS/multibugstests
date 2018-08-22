@@ -14,7 +14,7 @@ run_example <- function(model,
                         working_dir = tempdir()){
   examples_dir <- file.path(dir, "Examples")
   MultiBUGS.pgm <- file.path(dir, "MultiBUGS.exe")
-
+  
   old_wd <- getwd()
   setwd(working_dir)
   tidy_working_dir(working_dir)
@@ -41,11 +41,7 @@ run_example <- function(model,
   },
   error = function(e) e)
   setwd(old_wd)
-  if (!is.null(output) && coda::is.mcmc.list(output)){
-    TRUE
-  } else {
-    FALSE
-  }
+  output
 }
 
 #' Run all Examples
@@ -88,16 +84,21 @@ run_all_examples <- function(dir = "C:/MultiBUGS",
                working.directory = working_dir)
     
     start <- proc.time()
-    ok <- run_example(model = model,
-                      n.workers = n.workers,
-                      dir = dir,
-                      working_dir = working_dir)
+    output <- run_example(model = model,
+                          n.workers = n.workers,
+                          dir = dir,
+                          working_dir = working_dir)
+    if (!is.null(output) && coda::is.mcmc.list(output)){
+      ok <- TRUE
+    } else {
+      ok <- FALSE
+    }
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
     if (!ok){
       any_failed <- TRUE
     }
     report_fun(type = "post",
-               fit = NULL,
+               fit = summary(output),
                true = NULL,
                matched = ok,
                model = model,
