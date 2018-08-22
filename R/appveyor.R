@@ -76,7 +76,6 @@ appveyor_reporter_post <- function(fit,
                 "-Outcome", outcome,
                 "-StdOut", shQuote(stdout))
   system(call)
-  cat(call)
 }
 
 #' Report "wrapup" results to the console
