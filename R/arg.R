@@ -4,7 +4,8 @@
 #' into the current working directory
 #' 
 #' @param model A character vector (length 1) specifying the model
-#' @inheritParams all_models_in_dir
+#' @param examples_dir A character vector (length 1), containing the path to
+#' the Examples directory in the MultiBUGS directory
 #' @return The full path to the just-created (as a result of copying) file
 model_arg <- function(model, examples_dir){
   standard_copy_and_return("model", model, examples_dir)

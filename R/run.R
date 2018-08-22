@@ -57,6 +57,7 @@ run_example <- function(model,
 run_all_examples <- function(dir = "C:/MultiBUGS",
                              n.workers = 2,
                              report = "text",
+                             check = "runs",
                              exclude = NULL,
                              ...){
   examples_dir <- file.path(dir, "Examples")
@@ -70,6 +71,10 @@ run_all_examples <- function(dir = "C:/MultiBUGS",
     report_fun <- text_reporter
   } else if (report == "appveyor") {
     report_fun <- appveyor_reporter
+  }
+  
+  if (check == "runs"){
+    check_fun <- check_runs
   }
   
   for (model in all_models){
@@ -88,11 +93,8 @@ run_all_examples <- function(dir = "C:/MultiBUGS",
                           n.workers = n.workers,
                           dir = dir,
                           working_dir = working_dir)
-    if (!is.null(output) && coda::is.mcmc.list(output)){
-      ok <- TRUE
-    } else {
-      ok <- FALSE
-    }
+    ok <- check_fun(model, output)
+
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
     if (!ok){
       any_failed <- TRUE
