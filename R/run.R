@@ -47,6 +47,7 @@ bugs_example <- function(model,
 #' \code{\link{text_reporter}} or \code{"appveyor"} to use
 #' \code{\link{appveyor_reporter}}
 #' @param exclude A character vector of model names to skip
+#' @param save A path where to save results, otherwise \code{NULL}
 #' @inheritParams bugs_example
 #' @export
 bugs_examples_all <- function(dir = "C:/MultiBUGS",
@@ -54,6 +55,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                               report = "text",
                               check = "runs",
                               exclude = NULL,
+                              save = NULL,
                               implementation = "MultiBUGS",
                               ...){
   examples_dir <- file.path(dir, "Examples")
@@ -90,6 +92,14 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                            dir = dir,
                            working_dir = working_dir,
                            implementation = implementation)
+    if (!is.null(save)){
+      save_output(output,
+                  save_dir = save,
+                  model,
+                  n.workers,
+                  working_dir,
+                  implementation)
+    }
     ok <- check_fun(model, output)
     
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
