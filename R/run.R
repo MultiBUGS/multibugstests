@@ -74,6 +74,7 @@ run_all_examples <- function(dir = "C:/MultiBUGS",
                true = NULL,
                matched = ok,
                model = model,
+               n.workers = n.workers,
                milliseconds = milliseconds,
                working.directory = working_dir)
     flush.console()

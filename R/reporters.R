@@ -2,6 +2,7 @@ text_reporter <- function(fit,
                            true,
                            matched,
                            model,
+                           n.workers,
                            milliseconds,
                            working.directory){
   if (matched){
@@ -15,6 +16,7 @@ appveyor_reporter <- function(fit,
                        true,
                        matched,
                        model,
+                       n.workers,
                        milliseconds,
                        working.directory){
   if (matched){
