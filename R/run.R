@@ -1,3 +1,12 @@
+#' Run a single Example
+#' 
+#' Runs a single Example from the specified MultiBUGS install, with the
+#' specified level of distribution
+#' 
+#' @param model A character vector (length 1) specifying the model
+#' @param n.workers The number of cores to use
+#' @param dir Full path to the MultiBUGS install directory
+#' @param working_dir Full path to a temp dir where the model should be run
 #' @export
 run_example <- function(model,
                         n.workers = 2,
@@ -39,6 +48,15 @@ run_example <- function(model,
   }
 }
 
+#' Run all Examples
+#' 
+#' Runs all Examples in the specified MultiBUGS directory
+#' 
+#' @param report Specify how to report results. Either \code{"text"} to use
+#' \code{\link{text_reporter}} or \code{"appveyor"} to use
+#' \code{\link{appveyor_reporter}}
+#' @param exclude A character vector of model names to skip
+#' @inheritParams run_example
 #' @export
 run_all_examples <- function(dir = "C:/MultiBUGS",
                              n.workers = 2,

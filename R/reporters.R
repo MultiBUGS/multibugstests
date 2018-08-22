@@ -1,3 +1,16 @@
+#' Report result of test to the console
+#' 
+#' @param fit The output of the test. This should be an object for which
+#' \code{\link{print}} will appropriately summarise
+#' @param true The output to compare to. This should be an object for which
+#' \code{\link{print}} will appropriately summarise
+#' @param matched A logical vector (length 1) summarising the result of the
+#' test
+#' @param model A character vector (length 2) containing the name of the model
+#' being tested
+#' @param n.workers The number of workers used
+#' @param milliseconds The number of milliseconds that the test took
+#' @param working.directory Path to the working directory used for the run
 text_reporter <- function(fit,
                            true,
                            matched,
@@ -12,13 +25,16 @@ text_reporter <- function(fit,
   }
 }
 
+#' Report result of test for Appveyor
+#' 
+#' @inheritParams text_reporter
 appveyor_reporter <- function(fit,
-                       true,
-                       matched,
-                       model,
-                       n.workers,
-                       milliseconds,
-                       working.directory){
+                              true,
+                              matched,
+                              model,
+                              n.workers,
+                              milliseconds,
+                              working.directory){
   if (matched){
     message(paste('Results matched for example', model, '\n', sep=' '))
   } else {
