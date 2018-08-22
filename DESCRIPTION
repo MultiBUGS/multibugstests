@@ -3,7 +3,7 @@ Title: Tools for Testings MultiBUGS/R2MultiBUGS
 Version: 0.1
 Authors@R: person("R.J.B.", "Goudie", email = "rjbgoudie@gmail.com", role = c("aut", "cre"))
 Description: Tools for testing MultiBUGS
-Depends: R (>= 3.4.2)
+Depends: R (>= 3.4.2), coda
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
