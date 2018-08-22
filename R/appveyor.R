@@ -62,13 +62,15 @@ appveyor_reporter_post <- function(fit,
                   paste(fit, collapse = "\n"),
                   paste(true, collapse = "\n"),
                   sep = "\n\n==============\n\n")
-  system(paste("appveyor UpdateTest",
-               "-Framework", "R2MultiBUGS",
-               "-Filename", shQuote(model),
-               "-Duration", milliseconds,
-               "-Name", shQuote(model),
-               "-Outcome", outcome,
-               "-StdOut", shQuote(stdout)))
+  call <- paste("appveyor UpdateTest",
+                "-Framework", "R2MultiBUGS",
+                "-Filename", shQuote(model),
+                "-Duration", milliseconds,
+                "-Name", shQuote(model),
+                "-Outcome", outcome,
+                "-StdOut", shQuote(stdout))
+  system(call)
+  cat(call)
 }
 
 #' Report "wrapup" results to the console
