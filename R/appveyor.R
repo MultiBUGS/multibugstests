@@ -36,14 +36,14 @@ appveyor_reporter_pre <- function(model,
 #' 
 #' @inheritParams text_reporter_post
 appveyor_reporter_post <- function(fit,
-                                   true,
+                                   problem_table_string,
                                    passed,
                                    model,
                                    n.workers,
                                    milliseconds,
                                    working.directory){
   text_reporter_post(fit,
-                     true,
+                     problem_table_string,
                      passed,
                      model,
                      n.workers,
@@ -56,17 +56,14 @@ appveyor_reporter_post <- function(fit,
   fit <- c("\nResults obtained:\n",
            capture.output(fit_print), "\n",
            capture.output(dput(fit_print)))
-  if (class(true) == "mcmc.list"){
-    true_print <- head(summary(true)$statistics, 50)
-    true <- c("\nReference results:\n",
-              capture.output(true_print), "\n",
-              capture.output(dput(true_print)))
+  if (!is.null(problem_table_string)){
+    problem <- problem_table_string
   } else {
-    true <- "Unknown"
+    problem <- "No problems detected"
   }
   stdout <- paste(paste(log, collapse = "\n"),
                   paste(fit, collapse = "\n"),
-                  paste(true, collapse = "\n"),
+                  paste(problem, collapse = "\n"),
                   sep = "\n\n==============\n\n")
   call <- paste("appveyor UpdateTest",
                 "-Framework", "R2MultiBUGS",

@@ -42,7 +42,7 @@ text_reporter_pre <- function(model,
 #' @param milliseconds The number of milliseconds that the test took
 #' @param working.directory Path to the working directory used for the run
 text_reporter_post <- function(fit,
-                               true,
+                               problem_table_string,
                                passed,
                                model,
                                n.workers,
@@ -56,6 +56,9 @@ text_reporter_post <- function(fit,
     message(paste0("Results did not match for example ", model,
                    " (took ", seconds, " seconds) ",
                    "(ran in ", working.directory, ")"))
+    if (!is.null(problem_table_string)){
+      cat(paste(problem_table_string, collapse = "\n"))
+    }
   }
 }
 

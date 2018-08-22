@@ -46,6 +46,9 @@ bugs_example <- function(model,
 #' @param report Specify how to report results. Either \code{"text"} to use
 #' \code{\link{text_reporter}} or \code{"appveyor"} to use
 #' \code{\link{appveyor_reporter}}
+#' @param check Specify how to check the results. Either \code{"simply_ran"} to
+#' simply check that the Example ran, or \code{"openbugs"} to check results
+#' against OpenBUGS 3.2.3
 #' @param exclude A character vector of model names to skip
 #' @param include A character vector of model names to run. If \code{NULL} then
 #' all models (except those excluded) are run.
@@ -78,8 +81,10 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
     report_fun <- appveyor_reporter
   }
   
-  if (check == "runs"){
-    check_fun <- check_runs
+  if (check == "simply_ran"){
+    check_fun <- check_simply_ran
+  } else if (check == "openbugs"){
+    check_fun <- check_against_openbugs
   }
   
   n_models <- length(all_models)
@@ -109,12 +114,12 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                   implementation)
     }
     passed <- check_fun(model, output)
-    passed_all[model] <- passed
+    passed_all[model] <- passed$passed
     
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
     report_fun(type = "post")(fit = output,
-                              true = NULL,
-                              passed = passed,
+                              problem_table_string = passed$problem_table_string,
+                              passed = passed$passed,
                               model = model,
                               n.workers = n.workers,
                               milliseconds = milliseconds,
