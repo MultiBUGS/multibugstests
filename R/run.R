@@ -112,7 +112,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
     passed_all[model] <- passed
     
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
-    report_fun(type = "post")(fit = summary(output),
+    report_fun(type = "post")(fit = output,
                               true = NULL,
                               passed = passed,
                               model = model,

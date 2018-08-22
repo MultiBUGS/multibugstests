@@ -56,10 +56,14 @@ appveyor_reporter_post <- function(fit,
   fit <- c("\nResults obtained:\n",
            capture.output(fit_print), "\n",
            capture.output(dput(fit_print)))
-  true_print <- head(summary(true)$statistics, 50)
-  true <- c("\nReference results:\n",
-            capture.output(true_print), "\n",
-            capture.output(dput(true_print)))
+  if (class(true) == "mcmc.list"){
+    true_print <- head(summary(true)$statistics, 50)
+    true <- c("\nReference results:\n",
+              capture.output(true_print), "\n",
+              capture.output(dput(true_print)))
+  } else {
+    true <- "Unknown"
+  }
   stdout <- paste(paste(log, collapse = "\n"),
                   paste(fit, collapse = "\n"),
                   paste(true, collapse = "\n"),
