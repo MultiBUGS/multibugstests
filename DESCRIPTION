@@ -7,5 +7,5 @@ Depends: R (>= 3.4.2)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Import: R2MultiBUGS, coda
+Import: R2MultiBUGS, R2OpenBUGS, coda
 RoxygenNote: 6.1.0

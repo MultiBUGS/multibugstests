@@ -7,36 +7,31 @@
 #' @param n.workers The number of cores to use
 #' @param dir Full path to the MultiBUGS install directory
 #' @param working_dir Full path to a temp dir where the model should be run
+#' @param implementation Either \code{"MultiBUGS"} or \code{"OpenBUGS"}
 #' @export
-run_example <- function(model,
-                        n.workers = 2,
-                        dir = "C:/MultiBUGS",
-                        working_dir = tempdir()){
+bugs_example <- function(model,
+                         n.workers = 2,
+                         dir = "C:/MultiBUGS",
+                         working_dir = tempdir(),
+                         implementation = "MultiBUGS"){
   examples_dir <- file.path(dir, "Examples")
-  MultiBUGS.pgm <- file.path(dir, "MultiBUGS.exe")
+  
+  if (implementation == "MultiBUGS"){
+    bugs_fn <- bugs_example_multibugs
+  } else if (implementation == "OpenBUGS"){
+    bugs_fn <- bugs_example_openbugs
+  }
   
   old_wd <- getwd()
   setwd(working_dir)
   tidy_working_dir(working_dir)
-  
-  bugs_fn <- R2MultiBUGS::bugs
   output <- NULL
   tryCatch({
-    files <- bugs_fn(data = data_arg(model, examples_dir),
-                     inits = c(inits_arg(model, examples_dir),
-                               inits1_arg(model, examples_dir)),
-                     n.iter = n_iter_arg(model),
-                     model.file = model_arg(model, examples_dir),
-                     fix.founders = fix_founder_arg(model),
-                     DIC = dic_arg(model),
+    files <- bugs_fn(model = model,
                      n.workers = n.workers,
-                     parameters.to.save = param_to_save_arg(model,
-                                                            examples_dir),
-                     n.chains = 2,
-                     MultiBUGS.pgm = MultiBUGS.pgm,
-                     working.directory = working_dir,
-                     clearWD = TRUE,
-                     codaPkg = TRUE)
+                     dir = dir,
+                     examples_dir = examples_dir,
+                     working_dir = working_dir)
     output <- R2MultiBUGS::read.bugs(files, quiet = TRUE)
   },
   error = function(e) e)
@@ -52,14 +47,15 @@ run_example <- function(model,
 #' \code{\link{text_reporter}} or \code{"appveyor"} to use
 #' \code{\link{appveyor_reporter}}
 #' @param exclude A character vector of model names to skip
-#' @inheritParams run_example
+#' @inheritParams bugs_example
 #' @export
-run_all_examples <- function(dir = "C:/MultiBUGS",
-                             n.workers = 2,
-                             report = "text",
-                             check = "runs",
-                             exclude = NULL,
-                             ...){
+bugs_examples_all <- function(dir = "C:/MultiBUGS",
+                              n.workers = 2,
+                              report = "text",
+                              check = "runs",
+                              exclude = NULL,
+                              implementation = "MultiBUGS",
+                              ...){
   examples_dir <- file.path(dir, "Examples")
   all_models <- all_models_in_dir(examples_dir)
   if (!is.null(exclude)){
@@ -89,12 +85,13 @@ run_all_examples <- function(dir = "C:/MultiBUGS",
                working.directory = working_dir)
     
     start <- proc.time()
-    output <- run_example(model = model,
-                          n.workers = n.workers,
-                          dir = dir,
-                          working_dir = working_dir)
+    output <- bugs_example(model = model,
+                           n.workers = n.workers,
+                           dir = dir,
+                           working_dir = working_dir,
+                           implementation = implementation)
     ok <- check_fun(model, output)
-
+    
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
     if (!ok){
       any_failed <- TRUE
