@@ -40,7 +40,7 @@ inits1_arg <- function(model, examples_dir){
 }
 
 n_iter_arg <- function(model){
-  10000
+  5000
 }
 
 fix_founder_arg <- function(model){
