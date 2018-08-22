@@ -25,7 +25,13 @@ appveyor_reporter_pre <- function(fit,
                                   n.workers,
                                   milliseconds,
                                   working.directory){
-  message(paste("Running", model, "with", n.workers, "workers\n"))
+  text_reporter_pre(fit,
+                    true,
+                    matched,
+                    model,
+                    n.workers,
+                    milliseconds,
+                    working.directory)
   model <- paste0(model, " (", n.workers, " workers)")
   system(paste("appveyor AddTest",
                "-Framework", "R2MultiBUGS",
@@ -44,11 +50,13 @@ appveyor_reporter_post <- function(fit,
                                    n.workers,
                                    milliseconds,
                                    working.directory){
-  if (matched){
-    message(paste('Results matched for example', model, '\n', sep=' '))
-  } else {
-    message(paste('Results did not match for example', model, '\n', sep=' '))
-  }
+  text_reporter_post(fit,
+                     true,
+                     matched,
+                     model,
+                     n.workers,
+                     milliseconds,
+                     working.directory)
   outcome <- ifelse(matched, "Passed", "Failed")
   model <- paste0(model, " (", n.workers, " workers)")
   log <- readLines(file.path(working.directory, "log.txt"))

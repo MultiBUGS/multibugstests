@@ -36,7 +36,7 @@ text_reporter_pre <- function(fit,
                               n.workers,
                               milliseconds,
                               working.directory){
-  
+  message(paste0("Running ", model, " with ", n.workers, " workers"))
 }
 
 #' Report "post" results to the console
@@ -49,10 +49,14 @@ text_reporter_post <- function(fit,
                                n.workers,
                                milliseconds,
                                working.directory){
+  seconds <- milliseconds/1000
   if (matched){
-    message(paste('Results matched for example', model, '\n', sep=' '))
+    message(paste0("Results matched for example", model,
+                   "(took ", seconds, " seconds)"))
   } else {
-    message(paste('Results did not match for example', model, '\n', sep=' '))
+    message(paste0("Results did not match for example", model,
+                   "(took ", seconds, " seconds) ",
+                   "(ran in ", working.directory, ")"))
   }
 }
 
