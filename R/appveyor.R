@@ -26,6 +26,12 @@ appveyor_reporter_pre <- function(fit,
                                   milliseconds,
                                   working.directory){
   message(paste("Running", model, "with", n.workers, "workers\n"))
+  model <- paste0(model, " (", n.workers, " workers)")
+  system(paste("appveyor AddTest",
+               "-Framework", "R2MultiBUGS",
+               "-Filename", shQuote(model),
+               "-Name", shQuote(model),
+               "-Outcome", "Running"))
 }
 
 #' Report "post" results to Appveyor
@@ -56,7 +62,7 @@ appveyor_reporter_post <- function(fit,
                   paste(fit, collapse = "\n"),
                   paste(true, collapse = "\n"),
                   sep = "\n\n==============\n\n")
-  system(paste("appveyor AddTest",
+  system(paste("appveyor UpdateTest",
                "-Framework", "R2MultiBUGS",
                "-Filename", shQuote(model),
                "-Duration", milliseconds,
