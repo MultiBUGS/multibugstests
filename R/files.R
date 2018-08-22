@@ -30,9 +30,9 @@ custom_copy_and_return <- function(type, filename, examples_dir){
   to
 }
 
-tidy_temp_dir <- function(temp_dir){
+tidy_working_dir <- function(working_dir){
   files_to_delete <- c("model.txt", "inits.txt", "inits1.txt", "data.txt")
-  paths_to_delete <- file.path(temp_dir, files_to_delete)
+  paths_to_delete <- file.path(working_dir, files_to_delete)
   paths_which_exist <- file.exists(paths_to_delete)
   if (any(paths_which_exist)){
     file.remove(paths_to_delete[which(paths_which_exist)], showWarnings = FALSE)
