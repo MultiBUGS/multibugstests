@@ -78,7 +78,15 @@ run_all_examples <- function(dir = "C:/MultiBUGS",
   
   for (model in all_models){
     working_dir <- tempdir(check = TRUE)
-
+    report_fun(type = "pre",
+               fit = NULL,
+               true = NULL,
+               matched = NULL,
+               model = model,
+               n.workers = n.workers,
+               milliseconds = NULL,
+               working.directory = working_dir)
+    
     start <- proc.time()
     ok <- run_example(model = model,
                       n.workers = n.workers,
@@ -88,7 +96,8 @@ run_all_examples <- function(dir = "C:/MultiBUGS",
     if (!ok){
       any_failed <- TRUE
     }
-    report_fun(fit = NULL,
+    report_fun(type = "post",
+               fit = NULL,
                true = NULL,
                matched = ok,
                model = model,
