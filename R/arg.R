@@ -101,7 +101,7 @@ niter_arg <- function(model){
   custom <- c(`Abbey` = 13000,
               `Biopsies` = 6000, # 3000 by GR
               `BiRats` = 50000, # 3000 by GR
-              `Birds` = 100000, # 3000 by GR
+              `Birds` = 10000, # 3000 by GR
               `Blockers` = 50000, # 3000 by GR
               `Bones` = 50000, # 3000 by GR
               `Cervix` = 6000, # 3000 by GR
