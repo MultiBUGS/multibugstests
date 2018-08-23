@@ -28,16 +28,19 @@ bugs_example <- function(model,
   setwd(working_dir)
   tidy_working_dir(working_dir)
   output <- NULL
-  tryCatch({
+  output <- tryCatch({
     files <- bugs_fn(model = model,
                      n.chains = n.chains,
                      n.workers = n.workers,
                      dir = dir,
                      examples_dir = examples_dir,
                      working_dir = working_dir)
-    output <- R2MultiBUGS::read.bugs(files, quiet = TRUE)
+    R2MultiBUGS::read.bugs(files, quiet = TRUE)
   },
-  error = function(e) e)
+  error = function(e){
+    message(e)
+    e
+  })
   setwd(old_wd)
   output
 }
@@ -63,7 +66,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                               n.workers = 2,
                               report = "text",
                               check = "simply_ran",
-                              exclude = NULL,
+                              exclude = "SixComp",
                               include = NULL,
                               save = NULL,
                               implementation = "MultiBUGS",
