@@ -104,7 +104,9 @@ niter_arg <- function(model){
               `HepatitisME` = 12000,
               `Hepatitis` = 6000,
               `Ice` = 11000,
-              `Inhalers` = 4000)
+              `Inhalers` = 4000,
+              `Kidney` = 11000,
+              `Leukfr` = 6000)
   if (model %in% names(custom)){
     custom[model]
   } else {
