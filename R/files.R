@@ -102,6 +102,6 @@ tidy_working_dir <- function(working_dir){
   paths_to_delete <- file.path(working_dir, files_to_delete)
   paths_which_exist <- file.exists(paths_to_delete)
   if (any(paths_which_exist)){
-    file.remove(paths_to_delete[which(paths_which_exist)], showWarnings = FALSE)
+    file.remove(paths_to_delete[which(paths_which_exist)])
   }
 }
