@@ -1,8 +1,8 @@
 #' Setup model file for running
-#' 
+#'
 #' Finds the standard model file for the specified model, and copies it
 #' into the current working directory
-#' 
+#'
 #' @param model A character vector (length 1) specifying the model
 #' @param examples_dir A character vector (length 1), containing the path to
 #' the Examples directory in the MultiBUGS directory
@@ -12,11 +12,11 @@ model_arg <- function(model, examples_dir){
 }
 
 #' Set up data file for running
-#' 
+#'
 #' Finds the appropriate data files and either copies or loads the data.
 #' Simple cases will be copied across. More fiddly examples involve loading
 #' the data into R.
-#' 
+#'
 #' @inheritParams model_arg
 #' @return The full path to the just-created (as a result of copying) file;
 #' OR an R object with the data
@@ -42,10 +42,10 @@ data_arg <- function(model, examples_dir){
 }
 
 #' Set up inits file for running
-#' 
+#'
 #' Finds the appropriate inits file and either copies it to the current
 #' working directory
-#' 
+#'
 #' @inheritParams model_arg
 #' @return The full path to the just-created (as a result of copying) file
 inits_arg <- function(model, examples_dir){
@@ -57,10 +57,10 @@ inits_arg <- function(model, examples_dir){
 }
 
 #' Set up inits1 file for running
-#' 
+#'
 #' Finds the appropriate inits1 file and either copies it to the current
 #' working directory
-#' 
+#'
 #' @inheritParams model_arg
 #' @return The full path to the just-created (as a result of copying) file
 inits1_arg <- function(model, examples_dir){
@@ -72,10 +72,10 @@ inits1_arg <- function(model, examples_dir){
 }
 
 #' Set up inits file for running
-#' 
+#'
 #' Finds the appropriate inits file and either copies it to the current
 #' working directory
-#' 
+#'
 #' @param n.chains The number of chains
 #' @inheritParams model_arg
 #' @return The full path to the just-created (as a result of copying) file
@@ -93,30 +93,34 @@ inits_all_arg <- function(model, examples_dir, n.chains){
 }
 
 #' Default n.iter for each model
-#' 
+#'
 #' Selected to get Gelman-Runbin diagnostic below 1.05
-#' 
+#'
 #' @inheritParams model_arg
 niter_arg <- function(model){
   custom <- c(`Abbey` = 13000,
               `Biopsies` = 6000, # 3000 by GR
-              `BiRats` = 6000, # 3000 by GR
-              `Birds` = 15000, # 3000 by GR
-              `Blockers` = 6000, # 3000 by GR
-              `Bones` = 6000, # 3000 by GR
+              `BiRats` = 50000, # 3000 by GR
+              `Birds` = 100000, # 3000 by GR
+              `Blockers` = 50000, # 3000 by GR
+              `Bones` = 50000, # 3000 by GR
               `Cervix` = 6000, # 3000 by GR
+              `DataCloning` = 20000,
               `Dyes` = 4000, # 3000 by GR
-              `Endo` = 4000, # 3000 by GR
+              `Endo` = 50000, # 3000 by GR
               `Epil` = 5000, # 4000 by GR
               `Eyetracking` = 4000, # 4000 by GR
+              `Gentians` = 50000,
               `HepatitisME` = 12000,
-              `Hepatitis` = 6000,
+              `Hepatitis` = 50000,
               `Ice` = 11000,
-              `Inhalers` = 4000,
+              `Impala` = 50000,
+              `Inhalers` = 50000,
+              `Jama` = 50000,
               `Kidney` = 11000,
-              `Leukfr` = 6000,
+              `Leukfr` = 50000,
               `Lizards` = 11000,
-              `Magnesium` = 4000,
+              `Magnesium` = 50000,
               `Mice` = 4000,
               `Otrees` = 15000,
               `Oxford` = 9000,
@@ -131,7 +135,7 @@ niter_arg <- function(model){
 }
 
 #' Specify whether founders should be fixed
-#' 
+#'
 #' @inheritParams model_arg
 #' @return A logical of length 1
 fix_founder_arg <- function(model){
@@ -143,7 +147,7 @@ fix_founder_arg <- function(model){
 }
 
 #' Specify whether to monitor DIC or not
-#' 
+#'
 #' @inheritParams model_arg
 #' @return A logical of length 1
 dic_arg <- function(model){
@@ -156,9 +160,9 @@ dic_arg <- function(model){
 }
 
 #' Specify which params to monitor
-#' 
+#'
 #' By default, any parameter with an init specified is monitored
-#' 
+#'
 #' @inheritParams model_arg
 #' @return A character vector of parameter names
 param_to_save_arg <- function(model, examples_dir){
