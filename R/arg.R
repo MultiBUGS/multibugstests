@@ -99,13 +99,14 @@ inits_all_arg <- function(model, examples_dir, n.chains){
 #' @inheritParams model_arg
 niter_arg <- function(model){
   custom <- c(`Abbey` = 13000,
-              `Biopsies` = 4000, # 3000 by GR
-              `BiRats` = 4000, # 3000 by GR
-              `Birds` = 10000, # 3000 by GR
-              `Blockers` = 4000, # 3000 by GR
-              `Bones` = 4000, # 3000 by GR
-              `Cervix` = 4000, # 3000 by GR
+              `Biopsies` = 6000, # 3000 by GR
+              `BiRats` = 6000, # 3000 by GR
+              `Birds` = 15000, # 3000 by GR
+              `Blockers` = 6000, # 3000 by GR
+              `Bones` = 6000, # 3000 by GR
+              `Cervix` = 6000, # 3000 by GR
               `Dyes` = 4000, # 3000 by GR
+              `Endo` = 4000, # 3000 by GR
               `Epil` = 5000, # 4000 by GR
               `Eyetracking` = 4000, # 4000 by GR
               `HepatitisME` = 12000,
@@ -113,7 +114,8 @@ niter_arg <- function(model){
               `Ice` = 11000,
               `Inhalers` = 4000,
               `Kidney` = 11000,
-              `Leukfr` = 6000)
+              `Leukfr` = 6000,
+              `Lizards` = 11000)
   if (model %in% names(custom)){
     custom[model]
   } else {
