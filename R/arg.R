@@ -99,8 +99,15 @@ inits_all_arg <- function(model, examples_dir, n.chains){
 #' @inheritParams model_arg
 niter_arg <- function(model){
   custom <- c(`Abbey` = 13000,
-              `Epil` = 4000,
-              `Eyetracking` = 4000,
+              `Biopsies` = 4000, # 3000 by GR
+              `BiRats` = 4000, # 3000 by GR
+              `Birds` = 10000, # 3000 by GR
+              `Blockers` = 4000, # 3000 by GR
+              `Bones` = 4000, # 3000 by GR
+              `Cervix` = 4000, # 3000 by GR
+              `Dyes` = 4000, # 3000 by GR
+              `Epil` = 5000, # 4000 by GR
+              `Eyetracking` = 4000, # 4000 by GR
               `HepatitisME` = 12000,
               `Hepatitis` = 6000,
               `Ice` = 11000,
