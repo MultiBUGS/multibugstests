@@ -39,12 +39,14 @@ check_against_openbugs <- function(model, output){
         output_is_too_high <- true_mean < output_lower
         output_is_too_low <- true_mean > output_upper
         output_is_too <- output_is_too_high | output_is_too_low
+        se_out <- abs(output_mean - true_mean)/output_mcse
         problem_table <-
           data.frame(variable = names(output_is_too)[output_is_too],
                      output_lower = output_lower[output_is_too],
                      output_mean = output_mean[output_is_too],
                      output_upper = output_upper[output_is_too],
-                     true_mean = true_mean[output_is_too])
+                     true_mean = true_mean[output_is_too],
+                     se_out = se_out[output_is_too])
         problem_table_string <- capture.output(print(problem_table))
         list(passed = FALSE,
              problem_table = problem_table,

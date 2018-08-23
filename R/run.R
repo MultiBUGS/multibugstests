@@ -94,7 +94,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
   n_models <- length(all_models)
   
   output_all <- list()
-  passed_all <- logical(0)
+  passed_all <- list()
   
   for (model in all_models){
     working_dir <- tempdir(check = TRUE)
@@ -118,7 +118,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                   implementation)
     }
     passed <- check_fun(model, output)
-    passed_all[model] <- passed$passed
+    passed_all[[model]] <- passed
     
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
     report_fun(type = "post")(fit = output,
@@ -130,7 +130,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                               working.directory = working_dir)
     flush.console()
   }
-  report_fun(type = "wrapup")(output_all,
-                              passed_all)
-  invisible()
+  report_fun(type = "wrapup")(output_all = output_all,
+                              passed_all = passed_all)
+  invisible(list(output_all = output_all, passed_all = passed_all))
 }

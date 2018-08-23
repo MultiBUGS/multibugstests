@@ -57,7 +57,7 @@ text_reporter_post <- function(fit,
                    " (took ", seconds, " seconds) ",
                    "(ran in ", working.directory, ")"))
     if (!is.null(problem_table_string)){
-      cat(paste(problem_table_string, collapse = "\n"))
+      cat(paste(problem_table_string, collapse = "\n"), "\n")
     }
   }
 }
@@ -68,11 +68,17 @@ text_reporter_post <- function(fit,
 #' @param passed_all A logical vector, with TRUE if the test passed
 text_reporter_wrapup <- function(output_all,
                                  passed_all){
-  if (all(passed_all)){
+  passed_all_logical <- sapply(passed_all, "[[", "passed")
+  if (all(passed_all_logical)){
     message("All tests passed")
   } else {
-    failed_names <- names(passed_all)[!passed_all]
+    failed_names <- names(passed_all_logical)[!passed_all_logical]
     message("Not all tests passed")
     message("The following tests failed: ", paste(failed_names, collapse = ", "))
+    problem_tables <- lapply(passed_all, "[[", "problem_table")
+    se_out <- lapply(problem_tables, function(x){
+      x[, "se_out"]
+    })
+    cat(capture.output(se_out), "\n")
   }
 }
