@@ -117,7 +117,7 @@ fix_founder_arg <- function(model){
 #' @inheritParams model_arg
 #' @return A logical of length 1
 dic_arg <- function(model){
-  has_no_dic <- c("Abbey", "Camel", "Multistage", "SmartPhones", "Pigs")
+  has_no_dic <- c("Abbey", "Asia", "Camel", "Multistage", "Pigs", "SmartPhones")
   if (model %in% has_no_dic){
     FALSE
   } else {
