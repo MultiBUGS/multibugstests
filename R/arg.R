@@ -98,11 +98,13 @@ inits_all_arg <- function(model, examples_dir, n.chains){
 #' 
 #' @inheritParams model_arg
 niter_arg <- function(model){
-  custom <- list(`Abbey` = 13000,
-                 `Epil` = 4000,
-                 `Eyetracking` = 4000,
-                 `HepatitisME` = 12000,
-                 `Hepatitis` = 6000)
+  custom <- c(`Abbey` = 13000,
+              `Epil` = 4000,
+              `Eyetracking` = 4000,
+              `HepatitisME` = 12000,
+              `Hepatitis` = 6000,
+              `Ice` = 11000,
+              `Inhalers` = 4000)
   if (model %in% names(custom)){
     custom[model]
   } else {
