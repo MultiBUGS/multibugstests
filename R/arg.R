@@ -71,12 +71,33 @@ inits1_arg <- function(model, examples_dir){
   }
 }
 
+#' Set up inits file for running
+#' 
+#' Finds the appropriate inits file and either copies it to the current
+#' working directory
+#' 
+#' @param n.chains The number of chains
+#' @inheritParams model_arg
+#' @return The full path to the just-created (as a result of copying) file
+inits_all_arg <- function(model, examples_dir, n.chains){
+  if (model == "Sixcomp"){
+    # SixComp is unusual, and hard to specify inits for
+    NULL
+  } else {
+    if (n.chains == 2){
+      c(inits_arg(model, examples_dir), inits1_arg(model, examples_dir))
+    } else if (n.chains == 1){
+      inits_arg(model, examples_dir)
+    }
+  }
+}
+
 #' Specify the number of iterations to run for a model
 #' 
 #' @inheritParams model_arg
 #' @return Number of iterations
 n_iter_arg <- function(model){
-  2000
+  50000
 }
 
 #' Specify whether founders should be fixed

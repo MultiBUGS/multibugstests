@@ -9,14 +9,8 @@ bugs_example_multibugs <- function(model,
                                    examples_dir,
                                    working_dir){
   pgm <- file.path(dir, "MultiBUGS.exe")
-  if (n.chains == 2){
-    inits <- c(inits_arg(model, examples_dir),
-               inits1_arg(model, examples_dir))
-  } else if (n.chains == 1){
-    inits <- inits_arg(model, examples_dir)
-  }
   R2MultiBUGS::bugs(data = data_arg(model, examples_dir),
-                    inits = inits,
+                    inits = inits_all_arg(model, examples_dir, n.chains),
                     n.iter = n_iter_arg(model),
                     model.file = model_arg(model, examples_dir),
                     fix.founders = fix_founder_arg(model),
@@ -43,8 +37,7 @@ bugs_example_openbugs <- function(model,
                                   working_dir){
   pgm <- file.path(dir, "OpenBUGS.exe")
   R2OpenBUGS::bugs(data = data_arg(model, examples_dir),
-                   inits = c(inits_arg(model, examples_dir),
-                             inits1_arg(model, examples_dir)),
+                   inits = inits_all_arg(model, examples_dir, n.chains),
                    n.iter = n_iter_arg(model),
                    model.file = model_arg(model, examples_dir),
                    DIC = dic_arg(model),
