@@ -115,7 +115,14 @@ niter_arg <- function(model){
               `Inhalers` = 4000,
               `Kidney` = 11000,
               `Leukfr` = 6000,
-              `Lizards` = 11000)
+              `Lizards` = 11000,
+              `Magnesium` = 4000,
+              `Mice` = 4000,
+              `Otrees` = 15000,
+              `Oxford` = 9000,
+              `Pigweights` = 50000,
+              `StVeit` = 100000
+              )
   if (model %in% names(custom)){
     custom[model]
   } else {
