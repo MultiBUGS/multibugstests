@@ -4,7 +4,8 @@
 #' specified level of distribution
 #' 
 #' @param model A character vector (length 1) specifying the model
-#' @param n.iter The number of iterations
+#' @param n.iter The number of iterations. If NULL, the default for each model
+#' is used.
 #' @param n.chains The number of chains
 #' @param n.workers The number of cores to use
 #' @param dir Full path to the MultiBUGS install directory
@@ -12,7 +13,7 @@
 #' @param implementation Either \code{"MultiBUGS"} or \code{"OpenBUGS"}
 #' @export
 bugs_example <- function(model,
-                         n.iter = n.iter,
+                         n.iter = NULL,
                          n.chains = 2,
                          n.workers = 2,
                          dir = "C:/MultiBUGS",
@@ -65,7 +66,7 @@ bugs_example <- function(model,
 #' @inheritParams bugs_example
 #' @export
 bugs_examples_all <- function(dir = "C:/MultiBUGS",
-                              n.iter = 5000,
+                              n.iter = NULL,
                               n.chains = 2,
                               n.workers = 2,
                               report = "text",

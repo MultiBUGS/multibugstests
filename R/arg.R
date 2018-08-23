@@ -92,6 +92,24 @@ inits_all_arg <- function(model, examples_dir, n.chains){
   }
 }
 
+#' Default n.iter for each model
+#' 
+#' Selected to get Gelman-Runbin diagnostic below 1.05
+#' 
+#' @inheritParams model_arg
+niter_arg <- function(model){
+  custom <- list(`Abbey` = 13000,
+                 `Epil` = 4000,
+                 `Eyetracking` = 4000,
+                 `HepatitisME` = 12000,
+                 `Hepatitis` = 6000)
+  if (model %in% names(custom)){
+    custom[model]
+  } else {
+    3000
+  }
+}
+
 #' Specify whether founders should be fixed
 #' 
 #' @inheritParams model_arg

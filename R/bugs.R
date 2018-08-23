@@ -9,6 +9,9 @@ bugs_example_multibugs <- function(model,
                                    dir = "C:/MultiBUGS",
                                    examples_dir,
                                    working_dir){
+  if (is.null(n.iter)){
+    n.iter <- niter_arg(model)
+  }
   pgm <- file.path(dir, "MultiBUGS.exe")
   R2MultiBUGS::bugs(data = data_arg(model, examples_dir),
                     inits = inits_all_arg(model, examples_dir, n.chains),
