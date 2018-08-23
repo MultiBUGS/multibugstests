@@ -4,6 +4,7 @@
 #' specified level of distribution
 #' 
 #' @param model A character vector (length 1) specifying the model
+#' @param n.iter The number of iterations
 #' @param n.chains The number of chains
 #' @param n.workers The number of cores to use
 #' @param dir Full path to the MultiBUGS install directory
@@ -11,6 +12,7 @@
 #' @param implementation Either \code{"MultiBUGS"} or \code{"OpenBUGS"}
 #' @export
 bugs_example <- function(model,
+                         n.iter = n.iter,
                          n.chains = 2,
                          n.workers = 2,
                          dir = "C:/MultiBUGS",
@@ -30,6 +32,7 @@ bugs_example <- function(model,
   output <- NULL
   output <- tryCatch({
     files <- bugs_fn(model = model,
+                     n.iter = n.iter,
                      n.chains = n.chains,
                      n.workers = n.workers,
                      dir = dir,
@@ -62,6 +65,7 @@ bugs_example <- function(model,
 #' @inheritParams bugs_example
 #' @export
 bugs_examples_all <- function(dir = "C:/MultiBUGS",
+                              n.iter = 5000,
                               n.chains = 2,
                               n.workers = 2,
                               report = "text",
@@ -107,6 +111,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
     
     start <- proc.time()
     output <- bugs_example(model = model,
+                           n.iter = n.iter,
                            n.chains = n.chains,
                            n.workers = n.workers,
                            dir = dir,

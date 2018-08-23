@@ -92,14 +92,6 @@ inits_all_arg <- function(model, examples_dir, n.chains){
   }
 }
 
-#' Specify the number of iterations to run for a model
-#' 
-#' @inheritParams model_arg
-#' @return Number of iterations
-n_iter_arg <- function(model){
-  5000
-}
-
 #' Specify whether founders should be fixed
 #' 
 #' @inheritParams model_arg
