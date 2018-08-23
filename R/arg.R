@@ -76,7 +76,7 @@ inits1_arg <- function(model, examples_dir){
 #' @inheritParams model_arg
 #' @return Number of iterations
 n_iter_arg <- function(model){
-  5000
+  2000
 }
 
 #' Specify whether founders should be fixed
