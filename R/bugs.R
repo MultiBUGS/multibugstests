@@ -3,14 +3,20 @@
 #' @param examples_dir Full path to the directory containing the examples
 #' @inheritParams bugs_example
 bugs_example_multibugs <- function(model,
+                                   n.chains = 2,
                                    n.workers = 2,
                                    dir = "C:/MultiBUGS",
                                    examples_dir,
                                    working_dir){
   pgm <- file.path(dir, "MultiBUGS.exe")
+  if (n.chains == 2){
+    inits <- c(inits_arg(model, examples_dir),
+               inits1_arg(model, examples_dir))
+  } else if (n.chains == 1){
+    inits <- inits_arg(model, examples_dir)
+  }
   R2MultiBUGS::bugs(data = data_arg(model, examples_dir),
-                    inits = c(inits_arg(model, examples_dir),
-                              inits1_arg(model, examples_dir)),
+                    inits = inits,
                     n.iter = n_iter_arg(model),
                     model.file = model_arg(model, examples_dir),
                     fix.founders = fix_founder_arg(model),
@@ -18,7 +24,7 @@ bugs_example_multibugs <- function(model,
                     n.workers = n.workers,
                     parameters.to.save = param_to_save_arg(model,
                                                            examples_dir),
-                    n.chains = 2,
+                    n.chains = n.chains,
                     MultiBUGS.pgm = pgm,
                     working.directory = working_dir,
                     clearWD = TRUE,
@@ -30,6 +36,7 @@ bugs_example_multibugs <- function(model,
 #' @param examples_dir Full path to the directory containing the examples
 #' @inheritParams bugs_example
 bugs_example_openbugs <- function(model,
+                                  n.chains = 2,
                                   n.workers = NULL,
                                   dir = "C:/OpenBUGS",
                                   examples_dir,
