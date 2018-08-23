@@ -107,6 +107,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
     
     start <- proc.time()
     output <- bugs_example(model = model,
+                           n.chains = n.chains,
                            n.workers = n.workers,
                            dir = dir,
                            working_dir = working_dir,
