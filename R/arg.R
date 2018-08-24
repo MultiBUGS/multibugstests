@@ -105,7 +105,7 @@ niter_arg <- function(model){
               `Blockers` = 10000, # 3000 by GR
               `Bones` = 10000, # 3000 by GR
               `Cervix` = 6000, # 3000 by GR
-              `DataCloning` = 20000,
+              `DataCloning` = 5000,
               `Dyes` = 4000, # 3000 by GR
               `Endo` = 10000, # 3000 by GR
               `Epil` = 5000, # 4000 by GR
