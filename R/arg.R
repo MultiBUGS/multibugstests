@@ -119,7 +119,7 @@ niter_arg <- function(n.iter, model){
                 `Hepatitis` = 10000,
                 `Ice` = 11000,
                 `Impala` = 10000,
-                `Inhalers` = 50000,
+                `Inhalers` = 10000,
                 `Jama` = 10000,
                 `Kidney` = 11000,
                 `Leukfr` = 10000,
@@ -129,8 +129,8 @@ niter_arg <- function(n.iter, model){
                 `Otrees` = 15000,
                 `Oxford` = 9000,
                 `Pigs` = 10000,
-                `Pigweights` = 50000,
-                `StVeit` = 50000
+                `Pigweights` = 10000,
+                `StVeit` = 25000
     )
     if (model %in% names(custom)){
       custom[model]
