@@ -40,6 +40,9 @@ bugs_example_openbugs <- function(model,
                                   dir = "C:/OpenBUGS",
                                   examples_dir,
                                   working_dir){
+  if (is.null(n.iter)){
+    n.iter <- niter_arg(model)
+  }
   pgm <- file.path(dir, "OpenBUGS.exe")
   R2OpenBUGS::bugs(data = data_arg(model, examples_dir),
                    inits = inits_all_arg(model, examples_dir, n.chains),
