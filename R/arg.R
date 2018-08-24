@@ -100,32 +100,32 @@ inits_all_arg <- function(model, examples_dir, n.chains){
 niter_arg <- function(model){
   custom <- c(`Abbey` = 13000,
               `Biopsies` = 6000, # 3000 by GR
-              `BiRats` = 50000, # 3000 by GR
+              `BiRats` = 10000, # 3000 by GR
               `Birds` = 10000, # 3000 by GR
-              `Blockers` = 50000, # 3000 by GR
-              `Bones` = 50000, # 3000 by GR
+              `Blockers` = 10000, # 3000 by GR
+              `Bones` = 10000, # 3000 by GR
               `Cervix` = 6000, # 3000 by GR
               `DataCloning` = 20000,
               `Dyes` = 4000, # 3000 by GR
-              `Endo` = 50000, # 3000 by GR
+              `Endo` = 10000, # 3000 by GR
               `Epil` = 5000, # 4000 by GR
               `Eyetracking` = 4000, # 4000 by GR
-              `Gentians` = 50000,
+              `Gentians` = 10000,
               `HepatitisME` = 12000,
-              `Hepatitis` = 50000,
+              `Hepatitis` = 10000,
               `Ice` = 11000,
-              `Impala` = 50000,
+              `Impala` = 10000,
               `Inhalers` = 50000,
-              `Jama` = 50000,
+              `Jama` = 10000,
               `Kidney` = 11000,
-              `Leukfr` = 50000,
+              `Leukfr` = 10000,
               `Lizards` = 11000,
               `Magnesium` = 50000,
               `Mice` = 4000,
               `Otrees` = 15000,
               `Oxford` = 9000,
               `Pigweights` = 50000,
-              `StVeit` = 100000
+              `StVeit` = 50000
               )
   if (model %in% names(custom)){
     custom[model]
