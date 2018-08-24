@@ -98,7 +98,9 @@ custom_copy_and_return <- function(type, filename, examples_dir){
 #' 
 #' @param working_dir A path to the working directory
 tidy_working_dir <- function(working_dir){
-  files_to_delete <- c("model.txt", "inits.txt", "inits1.txt", "data.txt")
+  files_to_delete <- c("model.txt", "inits.txt", "inits1.txt", "data.txt",
+                       "log.txt", "log.odc", "CODAchain1.txt", "CODAchain2.txt",
+                       "CODAindex.txt", "script.txt")
   paths_to_delete <- file.path(working_dir, files_to_delete)
   paths_which_exist <- file.exists(paths_to_delete)
   if (any(paths_which_exist)){
