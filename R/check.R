@@ -26,27 +26,33 @@ check_against_openbugs <- function(model, output){
       list(passed = FALSE,
            problem_table_string = "No true values to compare to")
     } else {
-      true <- readRDS(file = filepath)
-      true_mean <- summary(true)[["statistics"]][, "Mean"]
-      
+      openbugs <- readRDS(file = filepath)
+      openbugs_mean <- summary(openbugs)[["statistics"]][, "Mean"]
+      openbugs_mcse <- summary(openbugs)[["statistics"]][, "Time-series SE"]
+      openbugs_lower <- openbugs_mean - 2 * openbugs_mcse
+      openbugs_upper <- openbugs_mean + 2 * openbugs_mcse
+            
       output_mean <- summary(output)[["statistics"]][, "Mean"]
       output_mcse <- summary(output)[["statistics"]][, "Time-series SE"]
       output_lower <- output_mean - 2 * output_mcse
       output_upper <- output_mean + 2 * output_mcse
-      if (all(true_mean > output_lower & true_mean < output_upper)){
+      if (all(openbugs_mean > output_lower & openbugs_mean < output_upper)){
         list(passed = TRUE)
       } else {
-        output_is_too_high <- true_mean < output_lower
-        output_is_too_low <- true_mean > output_upper
+        output_is_too_high <- openbugs_mean < output_lower
+        output_is_too_low <- openbugs_mean > output_upper
         output_is_too <- output_is_too_high | output_is_too_low
-        se_out <- abs(output_mean - true_mean)/output_mcse
+        se_out <- abs(output_mean - openbugs_mean)/output_mcse
         problem_table <-
-          data.frame(variable = names(output_is_too)[output_is_too],
+          data.frame(parameter = names(output_is_too)[output_is_too],
+                     diff_in_mcse = se_out[output_is_too],
                      output_lower = output_lower[output_is_too],
                      output_mean = output_mean[output_is_too],
                      output_upper = output_upper[output_is_too],
-                     true_mean = true_mean[output_is_too],
-                     se_out = se_out[output_is_too])
+                     openbugs_lower = openbugs_lower[output_is_too],
+                     openbugs_mean = openbugs_mean[output_is_too],
+                     openbugs_upper = openbugs_upper[output_is_too])
+        rownames(problem_table) <- NULL
         problem_table_string <- capture.output(print(problem_table))
         list(passed = FALSE,
              problem_table = problem_table,

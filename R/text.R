@@ -25,7 +25,7 @@ text_reporter <- function(type, ...){
 text_reporter_pre <- function(model,
                               n.workers,
                               working.directory){
-  message(paste0("Starting ", model, " with ", n.workers, " workers"))
+  message(paste0("\nStarting ", model, " with ", n.workers, " workers"))
 }
 
 #' Report "post" results to the console
@@ -76,9 +76,9 @@ text_reporter_wrapup <- function(output_all,
     message("Not all tests passed")
     message("The following tests failed: ", paste(failed_names, collapse = ", "))
     problem_tables <- lapply(passed_all, "[[", "problem_table")
-    se_out <- lapply(problem_tables, function(x){
-      x[, "se_out"]
+    diff_in_mcse_out <- lapply(problem_tables, function(x){
+      x[, "diff_in_mcse"]
     })
-    cat(capture.output(se_out), "\n")
+    cat(capture.output(diff_in_mcse_out), "\n")
   }
 }
