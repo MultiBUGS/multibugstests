@@ -9,13 +9,10 @@ bugs_example_multibugs <- function(model,
                                    dir = "C:/MultiBUGS",
                                    examples_dir,
                                    working_dir){
-  if (is.null(n.iter)){
-    n.iter <- niter_arg(model)
-  }
   pgm <- file.path(dir, "MultiBUGS.exe")
   R2MultiBUGS::bugs(data = data_arg(model, examples_dir),
                     inits = inits_all_arg(model, examples_dir, n.chains),
-                    n.iter = n.iter,
+                    n.iter = niter_arg(n.iter, model),
                     model.file = model_arg(model, examples_dir),
                     fix.founders = fix_founder_arg(model),
                     DIC = dic_arg(model),
@@ -40,13 +37,10 @@ bugs_example_openbugs <- function(model,
                                   dir = "C:/OpenBUGS",
                                   examples_dir,
                                   working_dir){
-  if (is.null(n.iter)){
-    n.iter <- niter_arg(model)
-  }
   pgm <- file.path(dir, "OpenBUGS.exe")
   R2OpenBUGS::bugs(data = data_arg(model, examples_dir),
                    inits = inits_all_arg(model, examples_dir, n.chains),
-                   n.iter = n.iter,
+                   n.iter = niter_arg(n.iter, model),
                    model.file = model_arg(model, examples_dir),
                    DIC = dic_arg(model),
                    parameters.to.save = param_to_save_arg(model,

@@ -96,42 +96,47 @@ inits_all_arg <- function(model, examples_dir, n.chains){
 #'
 #' Selected to get Gelman-Runbin diagnostic below 1.05
 #'
+#' @param n.iter Number of iterations, overrides the default
 #' @inheritParams model_arg
-niter_arg <- function(model){
-  custom <- c(`Abbey` = 13000,
-              `Biopsies` = 6000, # 3000 by GR
-              `BiRats` = 10000, # 3000 by GR
-              `Birds` = 10000, # 3000 by GR
-              `Blockers` = 10000, # 3000 by GR
-              `Bones` = 10000, # 3000 by GR
-              `Cervix` = 6000, # 3000 by GR
-              `DataCloning` = 5000,
-              `Dyes` = 4000, # 3000 by GR
-              `Endo` = 10000, # 3000 by GR
-              `Epil` = 5000, # 4000 by GR
-              `Eyetracking` = 4000, # 4000 by GR
-              `Gentians` = 10000,
-              `HepatitisME` = 12000,
-              `Hepatitis` = 10000,
-              `Ice` = 11000,
-              `Impala` = 10000,
-              `Inhalers` = 50000,
-              `Jama` = 10000,
-              `Kidney` = 11000,
-              `Leukfr` = 10000,
-              `Lizards` = 11000,
-              `Magnesium` = 50000,
-              `Mice` = 4000,
-              `Otrees` = 15000,
-              `Oxford` = 9000,
-              `Pigs` = 10000,
-              `Pigweights` = 50000,
-              `StVeit` = 50000
-              )
-  if (model %in% names(custom)){
-    custom[model]
+niter_arg <- function(n.iter, model){
+  if (!is.null(n.iter)){
+    n.iter
   } else {
-    3000
+    custom <- c(`Abbey` = 13000,
+                `Biopsies` = 6000, # 3000 by GR
+                `BiRats` = 10000, # 3000 by GR
+                `Birds` = 10000, # 3000 by GR
+                `Blockers` = 10000, # 3000 by GR
+                `Bones` = 10000, # 3000 by GR
+                `Cervix` = 6000, # 3000 by GR
+                `DataCloning` = 5000,
+                `Dyes` = 4000, # 3000 by GR
+                `Endo` = 10000, # 3000 by GR
+                `Epil` = 5000, # 4000 by GR
+                `Eyetracking` = 4000, # 4000 by GR
+                `Gentians` = 10000,
+                `HepatitisME` = 12000,
+                `Hepatitis` = 10000,
+                `Ice` = 11000,
+                `Impala` = 10000,
+                `Inhalers` = 50000,
+                `Jama` = 10000,
+                `Kidney` = 11000,
+                `Leukfr` = 10000,
+                `Lizards` = 11000,
+                `Magnesium` = 50000,
+                `Mice` = 4000,
+                `Otrees` = 15000,
+                `Oxford` = 9000,
+                `Pigs` = 10000,
+                `Pigweights` = 50000,
+                `StVeit` = 50000
+    )
+    if (model %in% names(custom)){
+      custom[model]
+    } else {
+      3000
+    }
   }
 }
 

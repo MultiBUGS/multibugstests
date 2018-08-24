@@ -23,9 +23,14 @@ text_reporter <- function(type, ...){
 #' @param n.workers The number of workers used
 #' @param working.directory Path to the working directory used for the run
 text_reporter_pre <- function(model,
+                              n.iter,
+                              n.chains,
                               n.workers,
                               working.directory){
-  message(paste0("\nStarting ", model, " with ", n.workers, " workers"))
+  message(paste0("\nStarting ", model,
+                 " running ", n.chains, " chains",
+                 " for ", niter_arg(n.iter, model), " iterations,",
+                 " using ", n.workers, " workers."))
 }
 
 #' Report "post" results to the console

@@ -19,9 +19,13 @@ appveyor_reporter <- function(type, ...){
 #' Report "pre" results to AppVeyor
 #' @inheritParams text_reporter_pre
 appveyor_reporter_pre <- function(model,
+                                  n.iter,
+                                  n.chains,
                                   n.workers,
                                   working.directory){
   text_reporter_pre(model,
+                    n.iter,
+                    n.chains,
                     n.workers,
                     working.directory)
   model <- paste0(model, " (", n.workers, " workers)")
