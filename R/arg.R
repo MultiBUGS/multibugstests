@@ -124,6 +124,7 @@ niter_arg <- function(model){
               `Mice` = 4000,
               `Otrees` = 15000,
               `Oxford` = 9000,
+              `Pigs` = 10000,
               `Pigweights` = 50000,
               `StVeit` = 50000
               )
