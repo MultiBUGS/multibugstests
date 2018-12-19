@@ -33,7 +33,7 @@ load_data_file <- function(filename, examples_dir){
 
 #' Construct full path to standard Examples files
 #'
-#' The Examples in BUGS are named in a standard manner. For a model called 
+#' The Examples in BUGS are named in a standard manner. For a model called
 #' "EXAMPLE", there will be the following files:
 #'
 #' 1. EXAMPLE.txt - this is the manual page that describes the model, and links
@@ -106,4 +106,12 @@ tidy_working_dir <- function(working_dir){
   if (any(paths_which_exist)){
     file.remove(paths_to_delete[which(paths_which_exist)])
   }
+}
+
+working_dir_subdir <- function(working_dir, model){
+  path <- file.path(working_dir, model)
+  if (!dir.exists(path)){
+    dir.create(path)
+  }
+  path
 }

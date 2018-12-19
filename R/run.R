@@ -30,6 +30,8 @@ bugs_example <- function(model,
   old_wd <- getwd()
   setwd(working_dir)
   tidy_working_dir(working_dir)
+  working_dir_subdir <- working_dir_subdir(working_dir, model)
+  setwd(working_dir_subdir)
   output <- NULL
   output <- tryCatch({
     files <- bugs_fn(model = model,
@@ -38,7 +40,7 @@ bugs_example <- function(model,
                      n.workers = n.workers,
                      dir = dir,
                      examples_dir = examples_dir,
-                     working_dir = working_dir)
+                     working_dir = working_dir_subdir)
     R2MultiBUGS::read.bugs(files, quiet = TRUE)
   },
   error = function(e){
