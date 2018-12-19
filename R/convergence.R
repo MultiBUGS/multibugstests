@@ -1,4 +1,3 @@
-
 #' @export
 bugs_example_convergence <- function(model,
                                      n.chains = 2,
@@ -7,13 +6,13 @@ bugs_example_convergence <- function(model,
                                      working_dir = tempdir(),
                                      implementation = "MultiBUGS"){
   examples_dir <- file.path(dir, "Examples")
-  
+
   if (implementation == "MultiBUGS"){
     bugs_fn <- bugs_example_multibugs
   } else if (implementation == "OpenBUGS"){
     bugs_fn <- bugs_example_openbugs
   }
-  
+
   old_wd <- getwd()
   setwd(working_dir)
   tidy_working_dir(working_dir)
@@ -62,17 +61,17 @@ bugs_examples_all_convergence <- function(dir = "C:/MultiBUGS",
     all_models <- include
   }
   if (!is.null(exclude)){
-    all_models <- setdiff(all_models, exclude) 
+    all_models <- setdiff(all_models, exclude)
   }
-  
+
   n_models <- length(all_models)
-  
+
   output_all <- list()
   passed_all <- list()
-  
+
   for (model in all_models){
     working_dir <- tempdir(check = TRUE)
-    
+
     output <- bugs_example_convergence(model = model,
                                        n.chains = n.chains,
                                        n.workers = n.workers,

@@ -1,5 +1,5 @@
 #' Report result of test for Appveyor
-#' 
+#'
 #' @param type One of \code{"pre"}, \code{"post"} and \code{"wrapup"}
 #' specifying the stage that needs reporting.
 #' @return The function \code{\link{appveyor_reporter_pre}},
@@ -37,7 +37,7 @@ appveyor_reporter_pre <- function(model,
 }
 
 #' Report "post" results to Appveyor
-#' 
+#'
 #' @inheritParams text_reporter_post
 appveyor_reporter_post <- function(fit,
                                    problem_table_string,
@@ -80,7 +80,7 @@ appveyor_reporter_post <- function(fit,
 }
 
 #' Report "wrapup" results to the console
-#' 
+#'
 #' @inheritParams text_reporter_wrapup
 appveyor_reporter_wrapup <- function(output_all,
                                      passed_all){
@@ -91,4 +91,3 @@ appveyor_reporter_wrapup <- function(output_all,
   exit_status <- ifelse(any_failed, 1, 0)
   q(status = exit_status)
 }
-

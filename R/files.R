@@ -1,18 +1,18 @@
 #' Extract names of all models in Examples
-#' 
-#' The Examples in BUGS are named in a standard manner. For a model called 
+#'
+#' The Examples in BUGS are named in a standard manner. For a model called
 #' "EXAMPLE", there will be the following files:
-#' 
+#'
 #' 1. EXAMPLE.txt - this is the manual page that describes the model, and links
 #'    to other pages
 #' 2. EXAMPLEmodel.txt - this just contains the model
 #' 3. EXAMPLEdata.txt - this just contains the data
 #' 4. EXAMPLEinits.txt - this contains the first set of inits
 #' 5. EXAMPLEinits1.txt - this contains a second set of inits
-#' 
+#'
 #' This function uses 2 to extract a list of all models in the Examples
 #' directory
-#' 
+#'
 #' @param examples_dir A character vector (length 1), containing the path to
 #' the Examples directory in the MultiBUGS directory
 #' @return A character vector of model names
@@ -22,9 +22,9 @@ all_models_in_dir <- function(examples_dir){
 }
 
 #' Log a simple data file
-#' 
+#'
 #' IMPORTANT this does not account for BUGS' row-major ordering!
-#' 
+#'
 #' @param filename A filename
 #' @inheritParams all_models_in_dir
 load_data_file <- function(filename, examples_dir){
@@ -32,20 +32,20 @@ load_data_file <- function(filename, examples_dir){
 }
 
 #' Construct full path to standard Examples files
-#' 
+#'
 #' The Examples in BUGS are named in a standard manner. For a model called 
 #' "EXAMPLE", there will be the following files:
-#' 
+#'
 #' 1. EXAMPLE.txt - this is the manual page that describes the model, and links
 #'    to other pages
 #' 2. EXAMPLEmodel.txt - this just contains the model
 #' 3. EXAMPLEdata.txt - this just contains the data
 #' 4. EXAMPLEinits.txt - this contains the first set of inits
 #' 5. EXAMPLEinits1.txt - this contains a second set of inits
-#' 
+#'
 #' This function will create the full path to each of these from the
 #' components
-#' 
+#'
 #' @param type A character string. One of \code{"model"}, \code{"data"},
 #' \code{"inits"} or \code{"inits1"}
 #' @param model A character string. The name of one of the Examples, as
@@ -57,7 +57,7 @@ standard_file <- function(type, model, examples_dir){
 }
 
 #' Create full paths to arbitrary files in the Examples dir
-#' 
+#'
 #' @param filename An arbitrary character string, containing the file name
 #' @inheritParams all_models_in_dir
 custom_file <- function(filename, examples_dir){
@@ -65,10 +65,10 @@ custom_file <- function(filename, examples_dir){
 }
 
 #' Copy a standard file to current working directory
-#' 
+#'
 #' Copies a standard Examples file to the current working directory and
 #' return the path to the just-created file
-#' 
+#'
 #' @inheritParams standard_file
 #' @return The path to the just-created file
 standard_copy_and_return <- function(type, model, examples_dir){
@@ -79,10 +79,10 @@ standard_copy_and_return <- function(type, model, examples_dir){
 }
 
 #' Copy a custom file to current working directory
-#' 
+#'
 #' Copies a custom Examples file to the current working directory and
 #' return the path to the just-created file
-#' 
+#'
 #' @inheritParams custom_file
 #' @return The path to the just-created file
 custom_copy_and_return <- function(type, filename, examples_dir){
@@ -93,9 +93,9 @@ custom_copy_and_return <- function(type, filename, examples_dir){
 }
 
 #' Delete BUGS files from a working_dir
-#' 
+#'
 #' Deletes model, inits, inits1 and data from the specified directory
-#' 
+#'
 #' @param working_dir A path to the working directory
 tidy_working_dir <- function(working_dir){
   files_to_delete <- c("model.txt", "inits.txt", "inits1.txt", "data.txt",

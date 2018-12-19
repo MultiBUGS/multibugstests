@@ -1,5 +1,5 @@
 #' Report result of test to the console
-#' 
+#'
 #' @param type One of \code{"pre"}, \code{"post"} and \code{"wrapup"}
 #' specifying the stage that needs reporting.
 #' @return The function \code{\link{text_reporter_pre}},
@@ -17,7 +17,7 @@ text_reporter <- function(type, ...){
 }
 
 #' Report "pre" results to the console
-#' 
+#'
 #' @param model A character vector (length 2) containing the name of the model
 #' being tested
 #' @param n.workers The number of workers used
@@ -34,7 +34,7 @@ text_reporter_pre <- function(model,
 }
 
 #' Report "post" results to the console
-#' 
+#'
 #' @param fit The output of the test. This should be an object for which
 #' \code{\link{print}} will appropriately summarise
 #' @param true The output to compare to. This should be an object for which
@@ -68,7 +68,7 @@ text_reporter_post <- function(fit,
 }
 
 #' Report "wrapup" results to the console
-#' 
+#'
 #' @param output_all A list of output from all tests
 #' @param passed_all A logical vector, with TRUE if the test passed
 text_reporter_wrapup <- function(output_all,

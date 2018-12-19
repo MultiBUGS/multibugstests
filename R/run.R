@@ -1,8 +1,8 @@
 #' Run a single Example
-#' 
+#'
 #' Runs a single Example from the specified MultiBUGS install, with the
 #' specified level of distribution
-#' 
+#'
 #' @param model A character vector (length 1) specifying the model
 #' @param n.iter The number of iterations. If NULL, the default for each model
 #' is used.
@@ -20,13 +20,13 @@ bugs_example <- function(model,
                          working_dir = tempdir(),
                          implementation = "MultiBUGS"){
   examples_dir <- file.path(dir, "Examples")
-  
+
   if (implementation == "MultiBUGS"){
     bugs_fn <- bugs_example_multibugs
   } else if (implementation == "OpenBUGS"){
     bugs_fn <- bugs_example_openbugs
   }
-  
+
   old_wd <- getwd()
   setwd(working_dir)
   tidy_working_dir(working_dir)
@@ -50,9 +50,9 @@ bugs_example <- function(model,
 }
 
 #' Run all Examples
-#' 
+#'
 #' Runs all Examples in the specified MultiBUGS directory
-#' 
+#'
 #' @param report Specify how to report results. Either \code{"text"} to use
 #' \code{\link{text_reporter}} or \code{"appveyor"} to use
 #' \code{\link{appveyor_reporter}}
@@ -83,35 +83,35 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
     all_models <- include
   }
   if (!is.null(exclude)){
-    all_models <- setdiff(all_models, exclude) 
+    all_models <- setdiff(all_models, exclude)
   }
-  
+
   any_failed <- FALSE
   if (report == "text"){
     report_fun <- text_reporter
   } else if (report == "appveyor") {
     report_fun <- appveyor_reporter
   }
-  
+
   if (check == "simply_ran"){
     check_fun <- check_simply_ran
   } else if (check == "openbugs"){
     check_fun <- check_against_openbugs
   }
-  
+
   n_models <- length(all_models)
-  
+
   output_all <- list()
   passed_all <- list()
-  
+
   for (model in all_models){
     working_dir <- tempdir(check = TRUE)
     report_fun(type = "pre")(model = model,
-                             n.iter = n.iter,
-                             n.chains = n.chains,
-                             n.workers = n.workers,
-                             working.directory = working_dir)
-    
+      n.iter = n.iter,
+      n.chains = n.chains,
+      n.workers = n.workers,
+      working.directory = working_dir)
+
     start <- proc.time()
     output <- bugs_example(model = model,
                            n.iter = n.iter,
@@ -131,18 +131,18 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
     }
     passed <- check_fun(model, output)
     passed_all[[model]] <- passed
-    
+
     milliseconds <- round((proc.time() - start)["elapsed"] * 1000)
     report_fun(type = "post")(fit = output,
-                              problem_table_string = passed$problem_table_string,
-                              passed = passed$passed,
-                              model = model,
-                              n.workers = n.workers,
-                              milliseconds = milliseconds,
-                              working.directory = working_dir)
+      problem_table_string = passed$problem_table_string,
+      passed = passed$passed,
+      model = model,
+      n.workers = n.workers,
+      milliseconds = milliseconds,
+      working.directory = working_dir)
     flush.console()
   }
   report_fun(type = "wrapup")(output_all = output_all,
-                              passed_all = passed_all)
+    passed_all = passed_all)
   invisible(list(output_all = output_all, passed_all = passed_all))
 }

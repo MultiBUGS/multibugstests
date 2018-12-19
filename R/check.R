@@ -1,4 +1,4 @@
-#' Simply check that the model ran 
+#' Simply check that the model ran
 #'
 #' @param model A character vector (length 1) specifying the model
 #' @param output The output from running the model. An code{mcmc.list} object
@@ -11,7 +11,7 @@ check_simply_ran <- function(model, output){
   }
 }
 
-#' Simply check that the model ran 
+#' Simply check that the model ran
 #'
 #' @param model A character vector (length 1) specifying the model
 #' @param output The output from running the model. An code{mcmc.list} object
@@ -31,7 +31,7 @@ check_against_openbugs <- function(model, output){
       openbugs_mcse <- summary(openbugs)[["statistics"]][, "Time-series SE"]
       openbugs_lower <- openbugs_mean - 2 * openbugs_mcse
       openbugs_upper <- openbugs_mean + 2 * openbugs_mcse
-            
+
       output_mean <- summary(output)[["statistics"]][, "Mean"]
       output_mcse <- summary(output)[["statistics"]][, "Time-series SE"]
       output_lower <- output_mean - 2 * output_mcse
