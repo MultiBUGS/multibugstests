@@ -30,8 +30,6 @@ bugs_example <- function(model,
   old_wd <- getwd()
   setwd(working_dir)
   tidy_working_dir(working_dir)
-  working_dir_subdir <- working_dir_subdir(working_dir, model)
-  setwd(working_dir_subdir)
   output <- NULL
   output <- tryCatch({
     files <- bugs_fn(model = model,
@@ -40,7 +38,7 @@ bugs_example <- function(model,
                      n.workers = n.workers,
                      dir = dir,
                      examples_dir = examples_dir,
-                     working_dir = working_dir_subdir)
+                     working_dir = working_dir)
     R2MultiBUGS::read.bugs(files, quiet = TRUE)
   },
   error = function(e){
@@ -108,11 +106,13 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
 
   for (model in all_models){
     working_dir <- tempdir(check = TRUE)
+    working_dir_subdir <- working_dir_subdir(working_dir, model)
+
     report_fun(type = "pre")(model = model,
       n.iter = n.iter,
       n.chains = n.chains,
       n.workers = n.workers,
-      working.directory = working_dir)
+      working.directory = working_dir_subdir)
 
     start <- proc.time()
     output <- bugs_example(model = model,
@@ -120,7 +120,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                            n.chains = n.chains,
                            n.workers = n.workers,
                            dir = dir,
-                           working_dir = working_dir,
+                           working_dir = working_dir_subdir,
                            implementation = implementation)
     output_all[[model]] <- output
     if (!is.null(save)){
@@ -128,7 +128,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                   save_dir = save,
                   model,
                   n.workers,
-                  working_dir,
+                  working_dir_subdir,
                   implementation)
     }
     passed <- check_fun(model, output)
@@ -141,7 +141,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
       model = model,
       n.workers = n.workers,
       milliseconds = milliseconds,
-      working.directory = working_dir)
+      working.directory = working_dir_subdir)
     flush.console()
   }
   report_fun(type = "wrapup")(output_all = output_all,
