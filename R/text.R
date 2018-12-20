@@ -73,7 +73,7 @@ text_reporter_post <- function(fit,
 #' @param passed_all A logical vector, with TRUE if the test passed
 text_reporter_wrapup <- function(output_all,
                                  passed_all){
-  passed_all_logical <- sapply(passed_all, "[[", "passed")
+  passed_all_logical <- unlist(passed_all)
   if (all(passed_all_logical)){
     message("All tests passed")
   } else {
