@@ -1,11 +1,14 @@
 #' Report result of test for Appveyor
 #'
-#' @param type One of \code{"pre"}, \code{"post"} and \code{"wrapup"}
-#' specifying the stage that needs reporting.
-#' @return The function \code{\link{appveyor_reporter_pre}},
-#' \code{\link{appveyor_reporter_post}} or \code{\link{appveyor_reporter_wrapup}}
+#' @param type One of \code{"setup"}, \code{"pre"}, \code{"post"} and
+#' \code{"wrapup"} specifying the stage that needs reporting.
+#' @return The function \code{\link{appveyor_reporter_setup}},
+#' \code{\link{appveyor_reporter_pre}}, \code{\link{appveyor_reporter_post}}
+#' or \code{\link{appveyor_reporter_wrapup}}
 appveyor_reporter <- function(type, ...){
-  if (type == "pre"){
+  if (type == "setup"){
+    appveyor_reporter_setup
+  } else if (type == "pre"){
     appveyor_reporter_pre
   } else if (type == "post"){
     appveyor_reporter_post
@@ -14,6 +17,12 @@ appveyor_reporter <- function(type, ...){
   } else {
     stop("Incorrect type specified")
   }
+}
+
+#' Report "setup" results to AppVeyor
+#' @inheritParams text_reporter_pre
+appveyor_reporter_setup <- function(dir, n.chains, n.workers){
+  text_reporter_setup(dir, n.chains, n.workers)
 }
 
 #' Report "pre" results to AppVeyor

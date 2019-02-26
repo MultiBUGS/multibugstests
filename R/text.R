@@ -1,11 +1,14 @@
 #' Report result of test to the console
 #'
-#' @param type One of \code{"pre"}, \code{"post"} and \code{"wrapup"}
-#' specifying the stage that needs reporting.
-#' @return The function \code{\link{text_reporter_pre}},
-#' \code{\link{text_reporter_post}} or \code{\link{text_reporter_wrapup}}
+#' @param type One of \code{"setup"}, \code{"pre"}, \code{"post"} and
+#' \code{"wrapup"} specifying the stage that needs reporting.
+#' @return The function \code{\link{text_reporter_setup}},
+#' \code{\link{text_reporter_pre}}, \code{\link{text_reporter_post}} or
+#' \code{\link{text_reporter_wrapup}}
 text_reporter <- function(type, ...){
-  if (type == "pre"){
+  if (type == "setup"){
+    text_reporter_setup
+  } else if (type == "pre"){
     text_reporter_pre
   } else if (type == "post"){
     text_reporter_post
@@ -14,6 +17,16 @@ text_reporter <- function(type, ...){
   } else {
     stop("Incorrect type specified")
   }
+}
+
+#' Report "setup" results to the console
+#'
+#' @param dir Full path to the MultiBUGS install directory
+#' @param n.chains The numebr of chains
+#' @param n.workers The number of workers used
+text_reporter_setup <- function(dir, n.chains, n.workers){
+  message(paste0("\nStarting running ", n.chains, " chains",
+                 " using ", n.workers, " workers."))
 }
 
 #' Report "pre" results to the console

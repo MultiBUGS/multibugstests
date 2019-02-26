@@ -91,6 +91,8 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
     report_fun <- text_reporter
   } else if (report == "appveyor") {
     report_fun <- appveyor_reporter
+  } else if (report == "junit") {
+    report_fun <- junit_reporter
   }
 
   if (check == "simply_ran"){
@@ -103,6 +105,10 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
 
   output_all <- list()
   passed_all <- list()
+
+  report_fun(type = "setup")(dir = dir,
+                             n.chains = n.chains,
+                             n.workers = n.workers)
 
   for (model in all_models){
     working_dir <- tempdir(check = TRUE)
