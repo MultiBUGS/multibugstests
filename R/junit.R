@@ -104,8 +104,7 @@ junit_reporter_post <- function(fit,
 
   testcase <- xml2::xml_add_child(.multibugstests_junit$suite,
                                   "testcase",
-                                  time = as.character(Sys.time()),
-                                  classname = "default",
+                                  time = as.character(milliseconds/60),
                                   name = model)
 
   if (outcome == "Failed"){
