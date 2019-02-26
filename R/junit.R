@@ -25,8 +25,8 @@ junit_reporter <- function(type, ...){
 junit_reporter_setup <- function(dir, n.chains, n.workers){
   .multibugstests_junit$tests_xml_path <-
     file.path(dir, paste0("TESTS-",
-                          n.chains, "chains-",
-                          n.workers, "-workers",
+                          n.workers, "workers-",
+                          n.chains, "chains",
                           ".xml"))
 
   name <- paste0(n.chains, " chains, ", n.workers, " workers")
