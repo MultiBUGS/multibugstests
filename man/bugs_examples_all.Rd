@@ -8,7 +8,7 @@ bugs_examples_all(dir = "C:/MultiBUGS", n.iter = NULL, n.chains = 2,
   n.workers = 2, report = "text", check = "simply_ran",
   exclude = "Sixcomp", include = NULL, save = NULL,
   implementation = "MultiBUGS", examples.dir = file.path(dir,
-  Examples), ...)
+  "Examples"), ...)
 }
 \arguments{
 \item{dir}{Full path to the MultiBUGS install directory}

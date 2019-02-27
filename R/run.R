@@ -77,7 +77,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                               include = NULL,
                               save = NULL,
                               implementation = "MultiBUGS",
-                              examples.dir = file.path(dir, Examples),
+                              examples.dir = file.path(dir, "Examples"),
                               ...){
   examples_dir <- examples.dir
   if (is.null(include)){
