@@ -11,6 +11,7 @@
 #' @param dir Full path to the MultiBUGS install directory
 #' @param working_dir Full path to a temp dir where the model should be run
 #' @param implementation Either \code{"MultiBUGS"} or \code{"OpenBUGS"}
+#' @param examples.dir Path to the directory containing the examples
 #' @export
 bugs_example <- function(model,
                          n.iter = NULL,
@@ -18,8 +19,9 @@ bugs_example <- function(model,
                          n.workers = 2,
                          dir = "C:/MultiBUGS",
                          working_dir = tempdir(),
-                         implementation = "MultiBUGS"){
-  examples_dir <- file.path(dir, "Examples")
+                         implementation = "MultiBUGS",
+                         examples.dir = file.path(dir, "Examples")){
+  examples_dir <- examples.dir
 
   if (implementation == "MultiBUGS"){
     bugs_fn <- bugs_example_multibugs
@@ -75,8 +77,9 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                               include = NULL,
                               save = NULL,
                               implementation = "MultiBUGS",
+                              examples.dir = file.path(dir, Examples),
                               ...){
-  examples_dir <- file.path(dir, "Examples")
+  examples_dir <- examples.dir
   if (is.null(include)){
     all_models <- all_models_in_dir(examples_dir)
   } else {
@@ -127,7 +130,8 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
                            n.workers = n.workers,
                            dir = dir,
                            working_dir = working_dir_subdir,
-                           implementation = implementation)
+                           implementation = implementation,
+                           examples.dir = examples.dir)
     output_all[[model]] <- output
     if (!is.null(save)){
       save_output(output,

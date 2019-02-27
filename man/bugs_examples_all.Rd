@@ -7,7 +7,8 @@
 bugs_examples_all(dir = "C:/MultiBUGS", n.iter = NULL, n.chains = 2,
   n.workers = 2, report = "text", check = "simply_ran",
   exclude = "Sixcomp", include = NULL, save = NULL,
-  implementation = "MultiBUGS", ...)
+  implementation = "MultiBUGS", examples.dir = file.path(dir,
+  Examples), ...)
 }
 \arguments{
 \item{dir}{Full path to the MultiBUGS install directory}
@@ -35,6 +36,8 @@ all models (except those excluded) are run.}
 \item{save}{A path where to save results, otherwise \code{NULL}}
 
 \item{implementation}{Either \code{"MultiBUGS"} or \code{"OpenBUGS"}}
+
+\item{examples.dir}{Path to the directory containing the examples}
 }
 \description{
 Runs all Examples in the specified MultiBUGS directory

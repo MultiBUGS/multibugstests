@@ -6,7 +6,8 @@
 \usage{
 bugs_example(model, n.iter = NULL, n.chains = 2, n.workers = 2,
   dir = "C:/MultiBUGS", working_dir = tempdir(),
-  implementation = "MultiBUGS")
+  implementation = "MultiBUGS", examples.dir = file.path(dir,
+  "Examples"))
 }
 \arguments{
 \item{model}{A character vector (length 1) specifying the model}
@@ -23,6 +24,8 @@ is used.}
 \item{working_dir}{Full path to a temp dir where the model should be run}
 
 \item{implementation}{Either \code{"MultiBUGS"} or \code{"OpenBUGS"}}
+
+\item{examples.dir}{Path to the directory containing the examples}
 }
 \description{
 Runs a single Example from the specified MultiBUGS install, with the
