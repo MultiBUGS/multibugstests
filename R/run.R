@@ -154,3 +154,24 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
     passed_all = passed_all)
   invisible(list(output_all = output_all, passed_all = passed_all))
 }
+
+#' Run a single Example
+#'
+#' Runs a single Example from the specified MultiBUGS install, with the
+#' specified level of distribution
+#'
+#' @param multidir Full path to the MultiBUGS install directory
+#' @param opendi Full path to the OpenBUGS install directory
+#' @param ... Passed to \code{\link{bugs_example}}
+#' @export
+bugs_example_compare <- function(multidir = NULL,
+                                 opendir = "S:/winapps/openbugs/OpenBUGS323-with-MultiBUGS-examples",
+                                 ...){
+  multi <- bugs_example(...,
+                        dir = multidir,
+                        implementation = "MultiBUGS")
+  open <- bugs_example(...,
+                       dir = opendir,
+                       implementation = "OpenBUGS")
+  list(multi = multi, open = open)
+}
