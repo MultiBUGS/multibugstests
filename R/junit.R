@@ -40,7 +40,7 @@ junit_reporter_setup <- function(dir, n.chains, n.workers, examples_dir){
                         name  = name,
                         timestamp = as.character(Sys.time()),
                         hostname  = Sys.info()[["nodename"]])
-  text_reporter_setup(dir, n.chains, n.workers)
+  text_reporter_setup(dir, n.chains, n.workers, examples_dir)
 }
 
 

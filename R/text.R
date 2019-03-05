@@ -24,7 +24,7 @@ text_reporter <- function(type, ...){
 #' @param dir Full path to the MultiBUGS install directory
 #' @param n.chains The numebr of chains
 #' @param n.workers The number of workers used
-#' @param examples.dir Path to the directory containing the examples
+#' @param examples_dir Path to the directory containing the examples
 text_reporter_setup <- function(dir, n.chains, n.workers, examples_dir){
   message(paste0("\nStarting running examples in ", examples_dir,
                  " with ", n.chains, " chains",
