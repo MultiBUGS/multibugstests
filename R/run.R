@@ -111,7 +111,8 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
 
   report_fun(type = "setup")(dir = dir,
                              n.chains = n.chains,
-                             n.workers = n.workers)
+                             n.workers = n.workers,
+                             examples_dir = examples_dir)
 
   for (model in all_models){
     working_dir <- tempdir(check = TRUE)

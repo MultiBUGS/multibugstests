@@ -115,3 +115,14 @@ working_dir_subdir <- function(working_dir, model){
   }
   path
 }
+
+#' Remove directory separators from file paths
+#'
+#' @param path A file path, as a character
+#' @return A character string with slashes and colons converted to dashes
+path_to_filename <- function(path){
+  path <- gsub("/", "-", path)
+  path <- gsub("\\", "-", path)
+  path <- gsub(":", "-", path)
+  path
+}

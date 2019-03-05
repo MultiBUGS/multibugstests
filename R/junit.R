@@ -22,12 +22,13 @@ junit_reporter <- function(type, ...){
 
 #' Report "setup" results to AppVeyor
 #' @inheritParams text_reporter_setup
-junit_reporter_setup <- function(dir, n.chains, n.workers){
+junit_reporter_setup <- function(dir, n.chains, n.workers, examples_dir){
+  name <- paste0(path_to_filename(examples_dir), "-",
+                 n.workers, "workers-",
+                 n.chains, "chains")
+
   .multibugstests_junit$tests_xml_path <-
-    file.path(dir, paste0("TESTS-",
-                          n.workers, "workers-",
-                          n.chains, "chains",
-                          ".xml"))
+    file.path(dir, paste0("TESTS-", name, ".xml"))
 
   name <- paste0(n.chains, " chains, ", n.workers, " workers")
   .multibugstests_junit$doc <- xml2::xml_new_document()

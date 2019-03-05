@@ -21,8 +21,8 @@ appveyor_reporter <- function(type, ...){
 
 #' Report "setup" results to AppVeyor
 #' @inheritParams text_reporter_pre
-appveyor_reporter_setup <- function(dir, n.chains, n.workers){
-  text_reporter_setup(dir, n.chains, n.workers)
+appveyor_reporter_setup <- function(dir, n.chains, n.workers, examples_dir){
+  text_reporter_setup(dir, n.chains, n.workers, examples_dir)
 }
 
 #' Report "pre" results to AppVeyor
