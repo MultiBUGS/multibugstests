@@ -4,7 +4,7 @@
 \alias{junit_reporter_setup}
 \title{Report "setup" results to AppVeyor}
 \usage{
-junit_reporter_setup(dir, n.chains, n.workers)
+junit_reporter_setup(dir, n.chains, n.workers, examples_dir)
 }
 \arguments{
 \item{dir}{Full path to the MultiBUGS install directory}
@@ -12,6 +12,8 @@ junit_reporter_setup(dir, n.chains, n.workers)
 \item{n.chains}{The numebr of chains}
 
 \item{n.workers}{The number of workers used}
+
+\item{examples_dir}{Path to the directory containing the examples}
 }
 \description{
 Report "setup" results to AppVeyor

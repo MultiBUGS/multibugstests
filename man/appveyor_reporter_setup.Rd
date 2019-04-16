@@ -4,7 +4,7 @@
 \alias{appveyor_reporter_setup}
 \title{Report "setup" results to AppVeyor}
 \usage{
-appveyor_reporter_setup(dir, n.chains, n.workers)
+appveyor_reporter_setup(dir, n.chains, n.workers, examples_dir)
 }
 \arguments{
 \item{n.workers}{The number of workers used}
