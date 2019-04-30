@@ -12,7 +12,7 @@ bugs_example_multibugs <- function(model,
   if (.Platform$OS.type == "windows"){
     pgm <- file.path(dir, "MultiBUGS.exe")
   } else {
-    pgm <- file.path(dir, "run-MultiBUGS")
+    pgm <- file.path(dir, "MultiBUGS")
   }
   R2MultiBUGS::bugs(data = data_arg(model, examples_dir),
                     inits = inits_all_arg(model, examples_dir, n.chains),
