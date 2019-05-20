@@ -108,6 +108,7 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
 
   output_all <- list()
   passed_all <- list()
+  milliseconds_all <- list()
 
   report_fun(type = "setup")(dir = dir,
                              n.chains = n.chains,
@@ -153,11 +154,14 @@ bugs_examples_all <- function(dir = "C:/MultiBUGS",
       n.workers = n.workers,
       milliseconds = milliseconds,
       working.directory = working_dir_subdir)
+    milliseconds_all[[model]] <- milliseconds
     flush.console()
   }
   report_fun(type = "wrapup")(output_all = output_all,
     passed_all = passed_all)
-  invisible(list(output_all = output_all, passed_all = passed_all))
+  invisible(list(output_all = output_all,
+                 passed_all = passed_all,
+                 milliseconds_all = milliseconds_all))
 }
 
 #' Run a single Example
