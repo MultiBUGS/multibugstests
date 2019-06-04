@@ -497,6 +497,7 @@ data_arg <- function(model, examples_dir){
                   `Kidney` = 11000,
                   `Leukfr` = 10000,
                   `Lizards` = 11000,
+                  `Lotka-Volterra` = 6000,
                   `Magnesium` = 50000,
                   `Mice` = 4000,
                   `Otrees` = 15000,
