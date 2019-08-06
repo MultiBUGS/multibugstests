@@ -65,7 +65,7 @@ check_against_openbugs <- function(model, output){
     }
   } else {
     list(passed = FALSE,
-         problem_table = NA
+         problem_table = NA,
          problem_table_string = "OK")
   }
 }
