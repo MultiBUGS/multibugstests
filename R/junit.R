@@ -124,7 +124,7 @@ junit_reporter_wrapup <- function(output_all,
                                      passed_all){
   text_reporter_wrapup(output_all,
                        passed_all)
-  passed_all_logical = unlist(passed_all)
+  passed_all_logical <- sapply(passed_all, "[[", "passed")
   any_failed <- any(!passed_all_logical)
   exit_status <- ifelse(any_failed, 1, 0)
 

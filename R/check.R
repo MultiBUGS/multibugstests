@@ -5,9 +5,13 @@
 #' or NULL
 check_simply_ran <- function(model, output){
   if (!is.null(output) && coda::is.mcmc.list(output)){
-    list(passed = TRUE)
+    list(passed = TRUE,
+         problem_table = NA,
+         problem_table_string = "OK")
   } else {
-    list(passed = FALSE)
+    list(passed = FALSE,
+         problem_table,
+         problem_table_string = "No output found")
   }
 }
 
@@ -60,6 +64,8 @@ check_against_openbugs <- function(model, output){
       }
     }
   } else {
-    list(passed = FALSE)
+    list(passed = FALSE,
+         problem_table = NA
+         problem_table_string = "OK")
   }
 }
