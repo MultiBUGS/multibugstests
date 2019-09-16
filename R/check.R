@@ -10,7 +10,7 @@ check_simply_ran <- function(model, output){
          problem_table_string = "OK")
   } else {
     list(passed = FALSE,
-         problem_table,
+         problem_table = NA,
          problem_table_string = "No output found")
   }
 }
@@ -28,6 +28,7 @@ check_against_openbugs <- function(model, output){
     if (!file.exists(filepath)){
       cat("True values missing for ", model, "\n")
       list(passed = FALSE,
+           problem_table = NA,
            problem_table_string = "No true values to compare to")
     } else {
       openbugs <- readRDS(file = filepath)
@@ -41,7 +42,8 @@ check_against_openbugs <- function(model, output){
       output_lower <- output_mean - 2 * output_mcse
       output_upper <- output_mean + 2 * output_mcse
       if (all(openbugs_mean > output_lower & openbugs_mean < output_upper)){
-        list(passed = TRUE)
+        list(passed = TRUE,
+             problem_table_string = "")
       } else {
         output_is_too_high <- openbugs_mean < output_lower
         output_is_too_low <- openbugs_mean > output_upper
@@ -57,7 +59,8 @@ check_against_openbugs <- function(model, output){
                      openbugs_mean = openbugs_mean[output_is_too],
                      openbugs_upper = openbugs_upper[output_is_too])
         rownames(problem_table) <- NULL
-        problem_table_string <- capture.output(print(problem_table))
+        problem_table_string <- paste(capture.output(print(problem_table)),
+                                      collapse = "\n")
         list(passed = FALSE,
              problem_table = problem_table,
              problem_table_string = problem_table_string)
