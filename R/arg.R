@@ -216,10 +216,10 @@ data_arg <- function(model, examples_dir){
                 18012, 18051, 18091, 18130, 18169, 18209, 18248, 18288,
                 18328, 18367))
     c(data_list1, data_list2, data_list3) }
-  else if (model == "Multistage"){
-      data_list1 <- load_data_file(filename = "Multistagedatalist.txt",
+  else if (model == "Preeclampsia"){
+      data_list1 <- load_data_file(filename = "Preeclampsiadatalist.txt",
                                    examples_dir)
-      data_list2 <- load_data_file(filename = "Multistagedata2.txt",
+      data_list2 <- load_data_file(filename = "Preeclampsiadata2.txt",
                                    examples_dir)
       c(data_list1, data_list2)
     } else if (model == "StVeit"){
@@ -407,7 +407,7 @@ data_arg <- function(model, examples_dir){
                   17895, 17934, 17973, 18012, 18051, 18091, 18130, 18169,
                   18209, 18248, 18288, 18328, 18367))
       c(data_list1, data_list2)
-    } else if (model == "probit"){
+    } else if (model == "BeetlesProbit"){
       load_data_file(filename = "Beetlesdata.txt", examples_dir)
     } else {
       standard_copy_and_return("data", model, examples_dir)
@@ -422,7 +422,7 @@ data_arg <- function(model, examples_dir){
 #' @inheritParams model_arg
   #' @return The full path to the just-created (as a result of copying) file
   inits_arg <- function(model, examples_dir){
-    if (model == "probit"){
+    if (model == "BeetlesProbit"){
       custom_copy_and_return("inits", "Beetlesinits.txt", examples_dir)
     } else {
       standard_copy_and_return("inits", model, examples_dir)
@@ -437,7 +437,7 @@ data_arg <- function(model, examples_dir){
   #' @inheritParams model_arg
   #' @return The full path to the just-created (as a result of copying) file
   inits1_arg <- function(model, examples_dir){
-    if (model == "probit"){
+    if (model == "BeetlesProbit"){
       custom_copy_and_return("inits1", "Beetlesinits1.txt", examples_dir)
     } else {
       standard_copy_and_return("inits1", model, examples_dir)
@@ -530,8 +530,8 @@ fix_founder_arg <- function(model){
 #' @inheritParams model_arg
 #' @return A logical of length 1
 dic_arg <- function(model){
-  has_no_dic <- c("Abbey", "Asia", "Camel", "Multistage", "Pigs", "SmartPhones",
-                  "Sparrowhawk", "Stagnant")
+  has_no_dic <- c("Abbey", "Asia", "Camel", "Preeclampsia", "Pigs",
+                  "SmartPhones", "Sparrowhawk", "Stagnant")
     if (model %in% has_no_dic){
       FALSE
     } else {
